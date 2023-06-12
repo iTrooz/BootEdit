@@ -1,4 +1,4 @@
 class Backend:
 
     def get_uefi_entries(self) -> list[str]:
-        return ["Entry 1", "Entry 2"]
+        return ["Windows Boot Manager", "GRUB", "Removable USB device", "Network boot"]
