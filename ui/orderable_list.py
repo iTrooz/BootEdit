@@ -76,7 +76,6 @@ class OrderableList(QListWidget):
 
 
     def add_movable_item(self, label, index=-1) -> OrderableListItem:
-        print(index)
         item = QListWidgetItem(parent=None)
         
         if index == -1:
