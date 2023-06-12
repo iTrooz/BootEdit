@@ -46,6 +46,14 @@ class OrderableListItem(QWidget):
 
 class OrderableList(QListWidget):
 
+    def __init__(self, *kargs, **kwargs):
+        super().__init__(*kargs, **kwargs)
+
+        self.setDragEnabled(True)
+        self.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
+
+        self.model().rowsMoved.connect(self.update_item_buttons)
+
     def update_item_buttons(self):
         for row in range(self.count()):
             item_widget = self.itemWidget(self.item(row))
