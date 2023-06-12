@@ -43,13 +43,13 @@ class OrderableListItem(QWidget):
 class OrderableList(QListWidget):
 
     def add_movable_item(self, label) -> OrderableListItem:
-        index = QListWidgetItem(parent=self)
-        item = OrderableListItem(parent=self, label=label)
+        item = QListWidgetItem(parent=self)
+        item_widget = OrderableListItem(parent=self, label=label)
 
         # enforce heights manually because I don't understand how Qt work
-        item.setFixedHeight(item.sizeHint().height())
-        index.setSizeHint(item.size())
+        item_widget.setFixedHeight(item_widget.sizeHint().height())
+        item.setSizeHint(item_widget.size())
 
-        self.setItemWidget(index, item)
+        self.setItemWidget(item, item_widget)
 
-        return item
+        return item_widget
