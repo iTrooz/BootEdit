@@ -70,13 +70,18 @@ class OrderableList(QListWidget):
         # hide "move up" button for first widget
         first_item_widget = self.itemWidget(self.item(0))
         first_item_widget.up_button.hide()
+        button = first_item_widget.up_button
+
+        # let it keep its space so we keep the right alignment
+        sp = button.sizePolicy()
+        sp.setRetainSizeWhenHidden(True)
+        button.setSizePolicy(sp)
         
-        # hide "move down" button for last widget
+        # same as above but for the "move down" button
         last_item_widget = self.itemWidget(self.item(self.count()-1))
         button = last_item_widget.down_button
         button.hide()
 
-        # let it keep its space so we keep the right alignment
         sp = button.sizePolicy()
         sp.setRetainSizeWhenHidden(True)
         button.setSizePolicy(sp)
