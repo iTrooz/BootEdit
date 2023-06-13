@@ -34,7 +34,7 @@ class Window(QWidget):
 
         entries = self.backend.get_uefi_entries()
         for entry in entries:
-            self.table.add_movable_item(entry)
+            self.table.add_movable_item(entry.name)
 
         # self.list_w.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
 
