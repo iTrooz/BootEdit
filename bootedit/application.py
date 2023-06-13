@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 
 from bootedit.ui.window import Window
 from bootedit.backend import Backend
@@ -18,4 +18,4 @@ class MyApplication(QApplication):
 
     def run(self) -> int:
         self.window.show()
-        return self.exec_()
+        return self.exec()

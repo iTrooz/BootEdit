@@ -1,6 +1,6 @@
 import signal
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QListWidget, QAbstractItemView, QListWidgetItem
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QListWidget, QAbstractItemView, QListWidgetItem
 
 from bootedit.ui.orderable_list import OrderableList
 
