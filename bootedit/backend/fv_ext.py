@@ -1,0 +1,42 @@
+# firmware-variables extension
+
+import struct
+from uuid import UUID
+
+from firmware_variables.utils import utf16_string_from_bytes
+from firmware_variables.device_path import DevicePathList, MediaDevicePathSubtype
+
+# Hard drive media device path (UEFI spec release 2.10 subsection 13.4.1)
+EFI_HARD_DRIVE = struct.Struct("<IQQQQBB")
+
+class EntryLocation:
+    """
+    :attr table_id: ID of this partition on the partition table of the device
+    :attr sig_id: Unique ID of this partition, usually represented witht he UUID format
+    """
+    def __init__(self) -> None:
+        self.table_id = None
+        self.sig_id = None
+        self.file_path = None
+
+    def is_valid(self) -> bool:
+        return (self.table_id != None and
+            self.sig_id != None and
+            self.file_path != None)
+
+
+def parse_file_path_list(file_path_list: DevicePathList) -> EntryLocation:
+    entry_location = EntryLocation()
+    for path in file_path_list.paths:
+
+        if path.subtype == MediaDevicePathSubtype.HARD_DRIVE:
+            p_number, p_start, p_size, p_sig_1, p_sig_2, p_format, p_type = EFI_HARD_DRIVE.unpack(path.data)
+            entry_location.table_id = p_number
+
+            p_sig = p_sig_1.to_bytes(8, 'little') + p_sig_2.to_bytes(8, 'little')
+
+            entry_location.sig_id = UUID(bytes_le=p_sig)
+        if path.subtype == MediaDevicePathSubtype.FILE_PATH:
+            entry_location.file_path = utf16_string_from_bytes(path.data)
+    
+    return entry_location
