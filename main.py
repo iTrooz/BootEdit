@@ -8,6 +8,7 @@ def main():
     signal.signal(signal.SIGINT, signal.SIG_DFL)
  
     app = MyApplication(sys.argv)
+    app.setStyle("fusion")
     app.init()
     sys.exit(app.run())
 
