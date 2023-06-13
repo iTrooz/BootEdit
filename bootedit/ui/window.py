@@ -2,7 +2,7 @@ import signal
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QListWidget, QAbstractItemView, QListWidgetItem
 
-from ui.orderable_list import OrderableList
+from bootedit.ui.orderable_list import OrderableList
 
 # root widget
 class Window(QWidget):

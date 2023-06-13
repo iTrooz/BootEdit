@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication
 
-from ui.window import Window
-from backend import Backend
+from bootedit.ui.window import Window
+from bootedit.backend import Backend
 
 # TODO maybe remove this class altogether
 class MyApplication(QApplication):

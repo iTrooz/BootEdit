@@ -1,7 +1,7 @@
 import sys
 import signal
 
-from application import MyApplication
+from bootedit.application import MyApplication
 
 def main():
     # Allow Ctrl+C
