@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import *
 
-from bootedit.ui.utils import get_icon
+from bootedit.ui.utils import get_sp_icon, get_bundled_icon
 
 class OrderableListItem(QWidget):
 
@@ -18,18 +18,25 @@ class OrderableListItem(QWidget):
         self.w_label = QLabel(text=label, parent=self)
         self.row.addWidget(self.w_label)
 
+        # add edit button
+        self.edit_button = self.__gen_button__(bundled_icon="edit.svg")
+        self.row.addWidget(self.edit_button)
+
         # add move up button
-        self.up_button = self.__gen_button__("SP_ArrowUp")
+        self.up_button = self.__gen_button__(sp_icon="SP_ArrowUp")
         self.row.addWidget(self.up_button)
         
         # add move down button
-        self.down_button = self.__gen_button__("SP_ArrowDown")
+        self.down_button = self.__gen_button__(sp_icon="SP_ArrowDown")
         self.row.addWidget(self.down_button)
 
 
-    def __gen_button__(self, icon_name: str):
+    def __gen_button__(self, sp_icon: str = None, bundled_icon: str = None):
         button = QPushButton(parent=self)
-        button.setIcon(get_icon(self.style(), icon_name))
+        if sp_icon:
+            button.setIcon(get_sp_icon(self.style(), sp_icon))
+        else:
+            button.setIcon(get_bundled_icon(bundled_icon))
 
         size = button.iconSize().height()*2
 
