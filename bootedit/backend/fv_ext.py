@@ -40,7 +40,7 @@ def parse_file_path_list(file_path_list: DevicePathList) -> EntryLocation:
 
             p_sig = p_sig_1.to_bytes(8, 'little') + p_sig_2.to_bytes(8, 'little')
 
-            entry_location.sig_id = UUID(bytes_le=p_sig)
+            entry_location.sig_id = str(UUID(bytes_le=p_sig))
         if path.subtype == MediaDevicePathSubtype.FILE_PATH:
             entry_location.file_path = utf16_string_from_bytes(path.data)
     
