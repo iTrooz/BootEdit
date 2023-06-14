@@ -51,7 +51,7 @@ def lsblk() -> dict:
 
 def blkid() -> List[dict]:
     parts_data = {}
-    partitions = [parts_data]
+    partitions = []
 
     output = subprocess.check_output(['blkid', '-o', 'export'])
 
