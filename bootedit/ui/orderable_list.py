@@ -19,11 +19,11 @@ class OrderableListItem(QWidget):
         self.row.addWidget(self.w_label)
 
         # add move up button
-        self.up_button = utils.gen_button(self, sp_icon="SP_ArrowUp")
+        self.up_button = utils.gen_button(self, bundled_icon="up.svg")
         self.row.addWidget(self.up_button)
         
         # add move down button
-        self.down_button = utils.gen_button(self, sp_icon="SP_ArrowDown")
+        self.down_button = utils.gen_button(self, bundled_icon="down.svg")
         self.row.addWidget(self.down_button)
     
     def text(self):
