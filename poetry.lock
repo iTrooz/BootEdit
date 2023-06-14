@@ -19,7 +19,7 @@ description = "Windows library for controlling UEFI firmware variables"
 optional = false
 python-versions = ">=2.7"
 files = []
-develop = false
+develop = true
 
 [package.dependencies]
 aenum = "*"
@@ -110,4 +110,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "1fe8543e55a0a60a2bcae312a68d35c867c0a6616c361626e8dd91a277804ee8"
+content-hash = "21d33448c3bce2c41f7d18c340ad318bd74b79517a94e9327af6dc7b1a24c94b"
