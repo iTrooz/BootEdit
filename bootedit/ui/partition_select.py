@@ -20,6 +20,18 @@ class PartitionSelector(QWidget):
         self.tree.setHeaderHidden(True)
         layout.addWidget(self.tree)
 
+        bottom_widget = QWidget()
+        layout.addWidget(bottom_widget)
+        
+        bottom_layout = QHBoxLayout()
+        bottom_widget.setLayout(bottom_layout)
+        bottom_layout.addStretch()
+
+        self.open_button = QPushButton("Open")
+        self.open_button.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+        bottom_layout.addWidget(self.open_button)
+
+
     def set_data(self, disks: List[Disk], default_partition: Partition):
         self.tree.clear()
 
