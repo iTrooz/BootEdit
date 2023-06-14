@@ -16,7 +16,7 @@ def mount_raw(source, target, fs, options=''):
 
 def mount(partition: Partition):
     tmpdir = tempfile.mkdtemp()
-    mount_raw(partition.name, tmpdir, "TODO", 'ro')
+    mount_raw(partition.name, tmpdir, partition.type, 'ro')
 
     print(f"Mounted partition {partition.name} on {tmpdir}")
 
