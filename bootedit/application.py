@@ -27,9 +27,6 @@ class MyApplication(QApplication):
         self.window.add_button.clicked.connect(lambda: self.add_entry())
 
     def add_entry(self):
-        if self.partition_selector:
-            print("Partition selected already opened")
-            return False
         self.partition_selector = PartitionSelector()
         self.partition_selector.set_data(*get_partitions())
         self.partition_selector.show()
