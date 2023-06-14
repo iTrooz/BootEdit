@@ -24,6 +24,9 @@ class EntryLocation:
             self.sig_id != None and
             self.file_path != None)
 
+    def __repr__(self) -> str:
+        return "EntryLocation(table_id={}, sig_id={}, file_path={})".format(self.table_id, self.sig_id, self.file_path)
+
 
 def parse_file_path_list(file_path_list: DevicePathList) -> EntryLocation:
     entry_location = EntryLocation()
