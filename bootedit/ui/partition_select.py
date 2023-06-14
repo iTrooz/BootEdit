@@ -16,6 +16,8 @@ class PartitionSelector(QTreeWidget):
             disk_item = QTreeWidgetItem()
             disk_item.setText(0, disk.name)
             self.addTopLevelItem(disk_item)
+            disk_item.setExpanded(True)
+
 
             for partition in disk.partitions:
                 part_item = QTreeWidgetItem()
