@@ -6,5 +6,7 @@ def get_platform_backend():
     match sys.platform:
         case "win32":
             return WinBackend()
+        case "linux":
+            return WinBackend()
         case _:
             raise NotImplementedError(f"Platform {sys.platform} not supported")
