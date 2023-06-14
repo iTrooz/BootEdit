@@ -81,7 +81,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
 
     parts_parents = lsblk()
 
-    for part_data in blkid():
+    for part_data in sorted(blkid(), key= lambda x: x["DEVNAME"]):
         part_file = part_data["DEVNAME"]
         part_uuid = part_data.get("PARTUUID")
         part_type = part_data.get("TYPE")
