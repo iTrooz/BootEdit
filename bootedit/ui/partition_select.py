@@ -8,6 +8,8 @@ class PartitionSelector(QTreeWidget):
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
+        self.setWindowTitle("Partition selector")
+        self.setHeaderHidden(True)
 
     def set_data(self, disks: List[Disk], default_partition: Partition):
         self.clear()
