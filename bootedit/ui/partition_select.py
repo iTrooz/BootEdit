@@ -4,20 +4,29 @@ from PyQt6.QtWidgets import *
 
 from bootedit.backend.partition_select import Disk, Partition
 
-class PartitionSelector(QTreeWidget):
+class PartitionSelector(QWidget):
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
         self.setWindowTitle("Partition selector")
-        self.setHeaderHidden(True)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.label = QLabel("Select the partition on which the bootable file is")
+        layout.addWidget(self.label)
+
+        self.tree = QTreeWidget()
+        self.tree.setHeaderHidden(True)
+        layout.addWidget(self.tree)
 
     def set_data(self, disks: List[Disk], default_partition: Partition):
-        self.clear()
+        self.tree.clear()
 
         for disk in disks:
             disk_item = QTreeWidgetItem()
             disk_item.setText(0, disk.name)
-            self.addTopLevelItem(disk_item)
+            self.tree.addTopLevelItem(disk_item)
             disk_item.setExpanded(True)
 
 
