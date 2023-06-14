@@ -1,0 +1,3 @@
+[submodule "firmware-variables"]
+	path = firmware-variables
+	url = https://github.com/iTrooz/firmware-variables

@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-firmware-variables = {git = "https://github.com/netaneld122/firmware-variables", rev="a3f7d59", platform="win32"}
+firmware-variables = {path = "firmware-variables", platform="win32"}
 pyqt6 = "^6.5.1"
 
 
