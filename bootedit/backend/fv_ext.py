@@ -6,7 +6,7 @@ from uuid import UUID
 from firmware_variables.utils import utf16_string_from_bytes
 from firmware_variables.device_path import DevicePathList, MediaDevicePathSubtype
 
-# Hard drive media device path (UEFI spec release 2.10 subsection 13.4.1)
+# Hard drive media device path (UEFI spec release 2.10 subsection 10.3.5.1)
 EFI_HARD_DRIVE = struct.Struct("<IQQQQBB")
 
 class EntryLocation:
