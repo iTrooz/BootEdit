@@ -4,6 +4,8 @@ import os
 import subprocess
 from typing import Tuple, List, Optional
 
+from bootedit.backend.fv_ext import parse_file_path_list, get_parsed_current_boot_entry
+
 class Disk:
     def __init__(self, name: str) -> None:
         self.name = name
@@ -70,8 +72,11 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
     """
     Linux-only implementation
     """
+    curr_entry = get_parsed_current_boot_entry()
+    curr_entry_loc = parse_file_path_list(curr_entry.file_path_list)
 
     disks = {}
+    default_partition = None
 
     parts_parents = lsblk()
 
@@ -91,6 +96,11 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(name=disk_name)
             disks[disk_name] = disk
 
-        disk.partitions.append(Partition(id=part_file, name=part_file))
+        partition = Partition(id=part_file, name=part_file)
+        disk.partitions.append(partition)
+
+        if part_uuid == curr_entry_loc.sig_id:
+            default_partition = partition
+        
     
-    return disks.values(), None
+    return disks.values(), default_partition
