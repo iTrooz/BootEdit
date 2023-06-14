@@ -1,12 +1,12 @@
 from PyQt6.QtWidgets import QApplication
 
 from bootedit.ui.window import Window
-from bootedit.backend.factory import get_platform_backend
+from bootedit.backend.backend import Backend
 
 # TODO maybe remove this class altogether
 class MyApplication(QApplication):
     def __init__(self, *kargs, **kwargs):
-        self.backend = get_platform_backend()
+        self.backend = Backend()
         super().__init__(*kargs, **kwargs)
 
     def init(self):
