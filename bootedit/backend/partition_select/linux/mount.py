@@ -15,7 +15,7 @@ def mount_raw(source, target, fs, options=''):
         raise OSError(errno, f"Error mounting {source} ({fs}) on {target} with options '{options}': {os.strerror(errno)}")
 
 def mount(partition: Partition):
-    tmpdir = tempfile.mkdtemp()
+    tmpdir = tempfile.mkdtemp(prefix="tmp-bootedit-")
     mount_raw(partition.device_name, tmpdir, partition.type, 'ro')
 
     print(f"Mounted partition {partition.device_name} on {tmpdir}")
