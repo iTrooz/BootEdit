@@ -1,13 +1,14 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
+from bootedit.logic.entry_add import EntryAddLogic
 
 from bootedit.ui.window import Window
-from bootedit.ui.partition_select import PartitionSelector
+from bootedit.ui.entry_add import EntryAddWindow
 from bootedit.backend.backend import Backend
 from bootedit.backend.partition_select import get_partitions
 
 # TODO maybe remove this class altogether
-class MyApplication(QApplication):
+class ApplicationLogic(QApplication):
     """
     
     :attr partition_selector: widget representing the active (shown right now)
@@ -25,14 +26,11 @@ class MyApplication(QApplication):
         self.window = Window(self.backend)
         self.window.init()
 
-        self.window.add_button.clicked.connect(lambda: self.add_entry())
+        self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())
 
-    def add_entry(self):
-        self.partition_selector = PartitionSelector()
-        self.partition_selector.setWindowModality(Qt.WindowModality.ApplicationModal)
-        self.partition_selector.set_data(*get_partitions())
-        self.partition_selector.show()
-
+    def show_add_entry_window(self):
+        self.entry_add = EntryAddLogic()
+        self.entry_add.show_window()
 
     def run(self) -> int:
         self.window.show()

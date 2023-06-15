@@ -1,13 +1,13 @@
 import sys
 import signal
 
-from bootedit.application import MyApplication
+from bootedit.logic.application import ApplicationLogic
 
 def main():
     # Allow Ctrl+C
     signal.signal(signal.SIGINT, signal.SIG_DFL)
  
-    app = MyApplication(sys.argv)
+    app = ApplicationLogic(sys.argv)
     app.setStyle("fusion")
     app.init()
     sys.exit(app.run())

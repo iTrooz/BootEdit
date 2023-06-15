@@ -15,7 +15,7 @@ def path_is_parent(parent_path: str, child_path: str) -> bool:
     # Compare the common path of the parent and child path with the common path of just the parent path. Using the commonpath method on just the parent path will regularise the path name in the same way as the comparison that deals with both paths, removing any trailing path separator
     return os.path.commonpath([parent_path]) == os.path.commonpath([parent_path, child_path])
 
-class PartitionSelector(QWidget):
+class EntryAddWindow(QWidget):
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
@@ -88,5 +88,4 @@ class PartitionSelector(QWidget):
             
         relpath = os.path.relpath(selected_file, root_folder)
         
-
-        print("Selected: file")
+        self.add_entry(self.selected_partition, relpath)
