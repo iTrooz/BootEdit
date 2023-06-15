@@ -73,7 +73,7 @@ class EntryAddWindow(QWidget):
         part_item = selected_list[0]
         self.selected_partition = part_item.partition
 
-        QMessageBox.information(self, "", "The selected partition has been mounted. "
+        QMessageBox.information(self, "", "The selected partition will be mounted. "
                                 "Please select the bootable file to add inside this partition")
         
         root_folder = mount(self.selected_partition)
