@@ -58,7 +58,7 @@ class EntryAddWindow(QWidget):
             for partition in disk.partitions:
                 part_item = QTreeWidgetItem()
                 part_item.partition = partition
-                part_item.setText(0, partition.name)
+                part_item.setText(0, partition.device_name)
                 disk_item.addChild(part_item)
 
                 if partition == default_partition:

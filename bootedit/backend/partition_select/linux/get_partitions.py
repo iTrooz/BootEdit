@@ -15,13 +15,13 @@ class Disk:
         return "Disk(name={}, partitions={})".format(self.name, self.partitions)
 
 class Partition:
-    def __init__(self, id, name: str, type: str) -> None:
-        self.id = id
-        self.name = name
+    def __init__(self, device_name: str, part_uuid: str, type: str) -> None:
+        self.device_name = device_name
+        self.part_uuid = part_uuid
         self.type = type
 
     def __repr__(self) -> str:
-        return "Partition(id={}, name={}, type={})".format(self.id, self.name, self.type)
+        return "Partition(device_name={}, part_uuid={}, type={})".format(self.device_name, self.part_uuid, self.type)
 
 def trim_number(input_str: str):
     """
@@ -82,7 +82,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
     parts_parents = lsblk()
 
     for part_data in sorted(blkid(), key= lambda x: x["DEVNAME"]):
-        part_file = part_data["DEVNAME"]
+        device_name = part_data["DEVNAME"]
         part_uuid = part_data.get("PARTUUID")
         part_type = part_data.get("TYPE")
         if not part_uuid:
@@ -90,7 +90,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             continue
 
         # remove the '/dev/' part
-        part_name = part_file[5:]
+        part_name = device_name[5:]
         disk_name = parts_parents[part_name]
 
         disk = disks.get(disk_name)
@@ -98,7 +98,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(name=disk_name)
             disks[disk_name] = disk
 
-        partition = Partition(id=part_file, name=part_file, type=part_type)
+        partition = Partition(device_name=device_name, part_uuid=part_uuid, type=part_type)
         disk.partitions.append(partition)
 
         if part_uuid == curr_entry_loc.sig_id:
