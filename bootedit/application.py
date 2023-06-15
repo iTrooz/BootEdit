@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import Qt
 
 from bootedit.ui.window import Window
 from bootedit.ui.partition_select import PartitionSelector
@@ -28,6 +29,7 @@ class MyApplication(QApplication):
 
     def add_entry(self):
         self.partition_selector = PartitionSelector()
+        self.partition_selector.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.partition_selector.set_data(*get_partitions())
         self.partition_selector.show()
 
