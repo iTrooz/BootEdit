@@ -1,9 +1,19 @@
 from typing import List
+import os
 
 from PyQt6.QtWidgets import *
 
 from bootedit.backend.partition_select import Disk, Partition
 from bootedit.backend.partition_select import mount, unmount
+
+# https://stackoverflow.com/a/37095733
+def path_is_parent(parent_path: str, child_path: str) -> bool:
+    # Smooth out relative path names, note: if you are concerned about symbolic links, you should use os.path.realpath too
+    parent_path = os.path.abspath(parent_path)
+    child_path = os.path.abspath(child_path)
+
+    # Compare the common path of the parent and child path with the common path of just the parent path. Using the commonpath method on just the parent path will regularise the path name in the same way as the comparison that deals with both paths, removing any trailing path separator
+    return os.path.commonpath([parent_path]) == os.path.commonpath([parent_path, child_path])
 
 class PartitionSelector(QWidget):
     
@@ -62,11 +72,21 @@ class PartitionSelector(QWidget):
         
         part_item = selected_list[0]
         self.selected_partition = part_item.partition
+
+        QMessageBox.information(self, "", "The selected partition has been mounted. "
+                                "Please select the bootable file to add inside this partition")
         
         root_folder = mount(self.selected_partition)
-
-        file = select_file(root_folder)
-
+        ret = QFileDialog.getOpenFileName(directory=root_folder)
         unmount(root_folder)
+
+        selected_file = ret[0]
+        if selected_file:
+            if not path_is_parent(root_folder, selected_file):
+                QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
+                return
+            
+        relpath = os.path.relpath(selected_file, root_folder)
+        
 
         print("Selected: file")
