@@ -88,6 +88,9 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
         if not part_uuid:
             # not a partition
             continue
+        if not part_type:
+            # we will not be able to read this partition
+            continue
 
         # remove the '/dev/' part
         part_name = device_name[5:]
