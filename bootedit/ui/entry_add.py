@@ -81,10 +81,11 @@ class EntryAddWindow(QWidget):
         unmount(root_folder)
 
         selected_file = ret[0]
-        if selected_file:
-            if not path_is_parent(root_folder, selected_file):
-                QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
-                return
+        if not selected_file:
+            return
+        if not path_is_parent(root_folder, selected_file):
+            QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
+            return
             
         relpath = os.path.relpath(selected_file, root_folder)
         
