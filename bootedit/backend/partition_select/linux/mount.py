@@ -22,6 +22,8 @@ def mount(partition: Partition):
 
     return tmpdir
 
-def unmount(path: str):
-    # TODO
-    pass
+def unmount(device_path: str, options=0):
+    ret = libc.umount2(device_path.encode(), options)
+    if ret < 0:
+        errno = ctypes.get_errno()
+        raise OSError(errno, f"Error umounting {device_path} with options '{options}': {os.strerror(errno)}")
