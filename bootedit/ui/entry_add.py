@@ -44,6 +44,8 @@ class EntryAddWindow(QWidget):
         self.ui.tree_manual_partition.itemSelectionChanged.connect(self.partition_selected)
         self.ui.but_manual_file.clicked.connect(self.select_file)
 
+        self.ui.edit_entry_name.setText("")
+
 
     def update_widgets_status(self):
         # Only enable the file selection button if we selected a partition
