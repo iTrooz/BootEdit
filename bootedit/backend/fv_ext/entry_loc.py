@@ -5,8 +5,8 @@ from uuid import UUID
 
 from firmware_variables.utils import utf16_string_from_bytes
 from firmware_variables.device_path import DevicePathList, MediaDevicePathSubtype
-from firmware_variables.platform import get_variable
-from firmware_variables.boot import get_parsed_boot_entry
+from firmware_variables import get_variable
+
 
 # Hard drive media device path (UEFI spec release 2.10 subsection 10.3.5.1)
 EFI_HARD_DRIVE = struct.Struct("<IQQQQBB")
@@ -46,7 +46,3 @@ def parse_file_path_list(file_path_list: DevicePathList) -> EntryLocation:
     
     return entry_location
 
-def get_parsed_current_boot_entry():
-    data, attributes = get_variable("BootCurrent")
-    entry_id = int.from_bytes(data, 'little')
-    return get_parsed_boot_entry(entry_id)
