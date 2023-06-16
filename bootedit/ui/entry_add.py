@@ -102,9 +102,6 @@ class EntryAddWindow(QWidget):
 
         
     def select_file(self):
-        QMessageBox.information(self, "", "The selected partition will be mounted. "
-                                "Please select the bootable file to add inside this partition")
-        
         root_folder = mount(self.selected_partition)
         ret = QFileDialog.getOpenFileName(directory=root_folder)
         unmount(root_folder)
