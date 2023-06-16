@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import *
 
 from bootedit.backend.partition_select import Disk, Partition
 from bootedit.backend.partition_select import mount, unmount
-from bootedit.ui.qt.entry_add_ui import Ui_EntryAdd
+from bootedit.ui.qt.entry_add_ui import Ui_AddUEFIEntry
 
 # https://stackoverflow.com/a/37095733
 def path_is_parent(parent_path: str, child_path: str) -> bool:
@@ -36,7 +36,7 @@ class EntryAddWindow(QWidget):
         self.selected_file_relpath: str = None
         self.selected_file_size: int = None
 
-        self.ui = Ui_EntryAdd()
+        self.ui = Ui_AddUEFIEntry()
         self.ui.setupUi(self)
 
         self.update_widgets_status()
