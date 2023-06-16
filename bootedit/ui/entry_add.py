@@ -42,6 +42,7 @@ class EntryAddWindow(QWidget):
         self.update_widgets_status()
 
         self.ui.tree_manual_partition.itemSelectionChanged.connect(self.partition_selected)
+        self.ui.but_manual_file.clicked.connect(self.select_file)
 
 
     def update_widgets_status(self):
