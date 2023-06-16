@@ -87,6 +87,7 @@ class EntryAddWindow(QWidget):
     
     def partition_selected(self):
         self.selected_file_relpath = None
+        self.selected_file_size = None
 
         selected_list = self.ui.tree_manual_partition.selectedItems()
         if len(selected_list) == 1:
@@ -104,15 +105,14 @@ class EntryAddWindow(QWidget):
     def select_file(self):
         root_folder = mount(self.selected_partition)
         ret = QFileDialog.getOpenFileName(directory=root_folder)
-        unmount(root_folder)
 
         selected_file = ret[0]
-        if not selected_file:
-            return
-        if not path_is_parent(root_folder, selected_file):
-            QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
-            return
-            
-        relpath = os.path.relpath(selected_file, root_folder)
+        if selected_file:
+            if path_is_parent(root_folder, selected_file):
+                self.selected_file_relpath = os.path.relpath(selected_file, root_folder)
+                self.selected_file_size = os.path.getsize(selected_file)
+                self.update_widgets_status()
+            else:
+                QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
         
-        self.add_entry(self.selected_partition, relpath)
+        unmount(root_folder)
