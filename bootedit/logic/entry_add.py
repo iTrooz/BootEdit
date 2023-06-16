@@ -7,7 +7,7 @@ class EntryAddLogic:
     def __init__(self) -> None:
         self.window = EntryAddWindow()
         self.window.setWindowModality(Qt.WindowModality.ApplicationModal)
-        self.window.set_data(*get_partitions())
+        self.window.set_partitions_data(*get_partitions())
         self.window.add_entry = self.add_entry
         
     def show_window(self) -> None:
