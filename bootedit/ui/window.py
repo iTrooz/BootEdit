@@ -11,16 +11,11 @@ class Window(QWidget):
     def __init__(self, backend):
         super().__init__()
         self.title = 'QListWidget with Move Up & Down'
-        self.left = 10
-        self.top = 10
-        self.width = 320
-        self.height = 200
 
         self.backend = backend
 
     def init(self):
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
  
         windowLayout = QVBoxLayout()
         self.setLayout(windowLayout)
