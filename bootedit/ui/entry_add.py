@@ -20,10 +20,28 @@ class EntryAddWindow(QWidget):
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
+        
+        self.selected_partition: Partition = None
+        self.selected_file_relpath: str = None
+
         self.ui = Ui_EntryAdd()
         self.ui.setupUi(self)
 
-        self.ui.tree_manual_partition.doubleClicked.connect(self.partition_selected)
+        self.update_widgets_status()
+
+        self.ui.tree_manual_partition.itemSelectionChanged.connect(self.partition_selected)
+
+
+    def update_widgets_status(self):
+        # Only enable the file selection button if we selected a partition
+        self.ui.but_manual_file.setDisabled(self.selected_partition == None)
+
+        # Update "Partition" line in "Entry information"
+        if self.selected_partition:
+            self.ui.edit_partition.setText(self.selected_partition.device_name)
+        else:
+            self.ui.edit_partition.setText("")
+            
 
     def set_partitions_data(self, disks: List[Disk], default_partition: Partition):
         self.ui.tree_manual_partition.clear()
@@ -47,15 +65,17 @@ class EntryAddWindow(QWidget):
     
     def partition_selected(self):
         selected_list = self.ui.tree_manual_partition.selectedItems()
-        if len(selected_list) != 1:
-            print("Should not happen: partition_selected() called not 1 selected item: {}", selected_list)
-            return
-        
-        part_item = selected_list[0]
-        if not hasattr(part_item, "partition"):
-            return
-        
-        self.selected_partition = part_item.partition
+        if len(selected_list) == 1:
+            part_item = selected_list[0]
+            if hasattr(part_item, "partition"):
+                self.selected_partition = part_item.partition
+                self.update_widgets_status()
+                return
+            
+
+        self.selected_partition = None
+        self.update_widgets_status()
+
         
     def select_file(self):
         QMessageBox.information(self, "", "The selected partition will be mounted. "
