@@ -16,6 +16,17 @@ def path_is_parent(parent_path: str, child_path: str) -> bool:
     # Compare the common path of the parent and child path with the common path of just the parent path. Using the commonpath method on just the parent path will regularise the path name in the same way as the comparison that deals with both paths, removing any trailing path separator
     return os.path.commonpath([parent_path]) == os.path.commonpath([parent_path, child_path])
 
+
+
+# https://stackoverflow.com/a/1094933
+def sizeof_fmt(num: int, suffix: str="B") -> str:
+    for unit in ["", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"]:
+        if abs(num) < 1024.0:
+            return f"{num:3.1f}{unit}{suffix}"
+        num /= 1024.0
+    return f"{num:.1f}Yi{suffix}"
+
+
 class EntryAddWindow(QWidget):
     
     def __init__(self, *kargs, **kwargs):
@@ -23,6 +34,7 @@ class EntryAddWindow(QWidget):
         
         self.selected_partition: Partition = None
         self.selected_file_relpath: str = None
+        self.selected_file_size: int = None
 
         self.ui = Ui_EntryAdd()
         self.ui.setupUi(self)
@@ -41,7 +53,16 @@ class EntryAddWindow(QWidget):
             self.ui.edit_partition.setText(self.selected_partition.device_name)
         else:
             self.ui.edit_partition.setText("")
-            
+
+        # Update "Partition" line in "Entry information"
+        self.ui.edit_file.setText(self.selected_file_relpath or "")
+
+        # Update "File size" line in "Entry information"
+        if self.selected_file_size:
+            self.ui.edit_file_size.setText(sizeof_fmt(self.selected_file_size))
+        else:
+            self.ui.edit_file_size.setText("")
+    
 
     def set_partitions_data(self, disks: List[Disk], default_partition: Partition):
         self.ui.tree_manual_partition.clear()
@@ -64,6 +85,8 @@ class EntryAddWindow(QWidget):
                     part_item.setSelected(True)
     
     def partition_selected(self):
+        self.selected_file_relpath = None
+
         selected_list = self.ui.tree_manual_partition.selectedItems()
         if len(selected_list) == 1:
             part_item = selected_list[0]
