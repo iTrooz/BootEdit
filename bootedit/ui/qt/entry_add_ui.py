@@ -153,15 +153,15 @@ class Ui_EntryAdd(object):
 
         self.horizontalLayout_5.addWidget(self.label_6)
 
-        self.edit_file_2 = QLineEdit(self.widget_3)
-        self.edit_file_2.setObjectName(u"edit_file_2")
+        self.edit_partition = QLineEdit(self.widget_3)
+        self.edit_partition.setObjectName(u"edit_file_2")
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.edit_file_2.sizePolicy().hasHeightForWidth())
-        self.edit_file_2.setSizePolicy(sizePolicy4)
+        sizePolicy4.setHeightForWidth(self.edit_partition.sizePolicy().hasHeightForWidth())
+        self.edit_partition.setSizePolicy(sizePolicy4)
 
-        self.horizontalLayout_5.addWidget(self.edit_file_2)
+        self.horizontalLayout_5.addWidget(self.edit_partition)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
@@ -209,12 +209,12 @@ class Ui_EntryAdd(object):
 
         self.horizontalLayout_6.addWidget(self.label_7)
 
-        self.edit_file_3 = QLineEdit(self.widget_3)
-        self.edit_file_3.setObjectName(u"edit_file_3")
-        sizePolicy4.setHeightForWidth(self.edit_file_3.sizePolicy().hasHeightForWidth())
-        self.edit_file_3.setSizePolicy(sizePolicy4)
+        self.edit_entry_name = QLineEdit(self.widget_3)
+        self.edit_entry_name.setObjectName(u"edit_file_3")
+        sizePolicy4.setHeightForWidth(self.edit_entry_name.sizePolicy().hasHeightForWidth())
+        self.edit_entry_name.setSizePolicy(sizePolicy4)
 
-        self.horizontalLayout_6.addWidget(self.edit_file_3)
+        self.horizontalLayout_6.addWidget(self.edit_entry_name)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
@@ -299,13 +299,13 @@ class Ui_EntryAdd(object):
         self.but_manual_file.setText(QCoreApplication.translate("EntryAdd", u"Select file manually", None))
         self.label_3.setText(QCoreApplication.translate("EntryAdd", u"Entry information", None))
         self.label_6.setText(QCoreApplication.translate("EntryAdd", u"Partition", None))
-        self.edit_file_2.setText(QCoreApplication.translate("EntryAdd", u"/dev/sda1", None))
+        self.edit_partition.setText(QCoreApplication.translate("EntryAdd", u"/dev/sda1", None))
         self.label_4.setText(QCoreApplication.translate("EntryAdd", u"File path", None))
         self.edit_file.setText(QCoreApplication.translate("EntryAdd", u"/EFI/grub/boot64.efi", None))
         self.label_5.setText(QCoreApplication.translate("EntryAdd", u"File size", None))
         self.edit_file_size.setText(QCoreApplication.translate("EntryAdd", u"64KiB", None))
         self.label_7.setText(QCoreApplication.translate("EntryAdd", u"Entry name", None))
-        self.edit_file_3.setText(QCoreApplication.translate("EntryAdd", u"Ubuntu GRUB", None))
+        self.edit_entry_name.setText(QCoreApplication.translate("EntryAdd", u"Ubuntu GRUB", None))
         self.label_error.setText(QCoreApplication.translate("EntryAdd", u"Please select a partition", None))
     # retranslateUi
 
