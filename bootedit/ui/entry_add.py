@@ -23,6 +23,8 @@ class EntryAddWindow(QWidget):
         self.ui = Ui_EntryAdd()
         self.ui.setupUi(self)
 
+        self.ui.tree_manual_partition.doubleClicked.connect(self.partition_selected)
+
     def set_partitions_data(self, disks: List[Disk], default_partition: Partition):
         self.ui.tree_manual_partition.clear()
 
@@ -44,7 +46,7 @@ class EntryAddWindow(QWidget):
                     part_item.setSelected(True)
     
     def partition_selected(self):
-        selected_list = self.tree.selectedItems()
+        selected_list = self.ui.tree_manual_partition.selectedItems()
         if len(selected_list) != 1:
             print("Should not happen: partition_selected() called not 1 selected item: {}", selected_list)
             return
@@ -54,7 +56,8 @@ class EntryAddWindow(QWidget):
             return
         
         self.selected_partition = part_item.partition
-
+        
+    def select_file(self):
         QMessageBox.information(self, "", "The selected partition will be mounted. "
                                 "Please select the bootable file to add inside this partition")
         
