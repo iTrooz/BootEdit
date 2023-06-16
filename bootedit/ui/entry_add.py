@@ -71,6 +71,9 @@ class EntryAddWindow(QWidget):
             return
         
         part_item = selected_list[0]
+        if not hasattr(part_item, "partition"):
+            return
+        
         self.selected_partition = part_item.partition
 
         QMessageBox.information(self, "", "The selected partition will be mounted. "
