@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from bootedit.logic.entry_add import EntryAddLogic
 
-from bootedit.ui.window import Window
+from bootedit.ui.main_window import MainWindow
 from bootedit.ui.entry_add import EntryAddWindow
 from bootedit.backend.backend import Backend
 from bootedit.backend.partition_select import get_partitions
@@ -23,7 +23,7 @@ class ApplicationLogic(QApplication):
         self.init_ui()
 
     def init_ui(self):
-        self.window = Window(self.backend)
+        self.window = MainWindow(self.backend)
         self.window.init()
 
         self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())

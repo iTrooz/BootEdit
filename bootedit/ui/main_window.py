@@ -6,7 +6,7 @@ from bootedit.ui.orderable_list import OrderableList
 from bootedit.ui import utils
 
 # root widget
-class Window(QWidget):
+class MainWindow(QWidget):
 
     def __init__(self, backend):
         super().__init__()
