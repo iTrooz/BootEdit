@@ -51,8 +51,13 @@ class EntryAddWindow(QWidget):
     def info_entry_name_edited(self):
         self.entry_name = self.ui.edit_entry_name.text()
         self.update_widgets_status()
-        
 
+    def set_partition_and_update(self, partition: Partition) -> None:
+        if self.selected_partition == partition:
+            return
+        
+        self.selected_partition = partition
+        self.update_widgets_status()
 
     def update_widgets_status(self):
         # Only enable the file selection button if we selected a partition
@@ -122,13 +127,11 @@ class EntryAddWindow(QWidget):
         if len(selected_list) == 1:
             part_item = selected_list[0]
             if hasattr(part_item, "partition"):
-                self.selected_partition = part_item.partition
-                self.update_widgets_status()
+                self.set_partition_and_update(part_item.partition)
                 return
             
 
-        self.selected_partition = None
-        self.update_widgets_status()
+        self.set_partition_and_update(None)
 
         
     def select_file(self):
