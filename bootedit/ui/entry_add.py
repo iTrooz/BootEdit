@@ -57,9 +57,12 @@ class EntryAddWindow(QWidget):
             return
         
         self.selected_partition = partition
+
+        self.set_file_and_update(None, None, update=False)
+
         self.update_widgets_status()
 
-    def set_file_and_update(self, file_full_path: str, file_rel_path: str) -> None:
+    def set_file_and_update(self, file_full_path: str, file_rel_path: str, update: bool = True) -> None:
         if self.selected_file_relpath == file_rel_path:
             return
         
@@ -67,10 +70,11 @@ class EntryAddWindow(QWidget):
             self.selected_file_size = os.path.getsize(file_full_path)
             self.selected_file_relpath = file_rel_path
         else:
-            self.selected_file_size = ""
+            self.selected_file_size = 0
             self.selected_file_relpath = ""
 
-        self.update_widgets_status()
+        if update:
+            self.update_widgets_status()
 
     def update_widgets_status(self):
         # Only enable the file selection button if we selected a partition
@@ -133,8 +137,6 @@ class EntryAddWindow(QWidget):
                     part_item.setSelected(True)
     
     def partition_selected(self):
-        self.set_file_and_update(None, None)
-
         selected_list = self.ui.tree_manual_partition.selectedItems()
         if len(selected_list) == 1:
             part_item = selected_list[0]
