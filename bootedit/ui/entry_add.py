@@ -35,6 +35,7 @@ class EntryAddWindow(QWidget):
         self.selected_partition: Partition = None
         self.selected_file_relpath: str = None
         self.selected_file_size: int = None
+        self.entry_name: str = None
 
         self.ui = Ui_AddUEFIEntry()
         self.ui.setupUi(self)
@@ -45,26 +46,52 @@ class EntryAddWindow(QWidget):
         self.ui.but_manual_file.clicked.connect(self.select_file)
 
         self.ui.edit_entry_name.setText("")
+        self.ui.edit_entry_name.textEdited.connect(lambda: self.entry_name_edited())
+
+    def info_entry_name_edited(self):
+        self.entry_name = self.ui.edit_entry_name.text()
+        self.update_widgets_status()
+        
 
 
     def update_widgets_status(self):
         # Only enable the file selection button if we selected a partition
         self.ui.but_manual_file.setDisabled(self.selected_partition == None)
 
+        error_msg = ""
+
         # Update "Partition" line in "Entry information"
         if self.selected_partition:
             self.ui.edit_partition.setText(self.selected_partition.device_name)
         else:
+            error_msg = error_msg or "Please select a partition"
             self.ui.edit_partition.setText("")
 
         # Update "Partition" line in "Entry information"
-        self.ui.edit_file.setText(self.selected_file_relpath or "")
+        if self.selected_file_relpath:
+            self.ui.edit_file.setText(self.selected_file_relpath)
+        else:
+            self.ui.edit_file.setText("")
+            error_msg = error_msg or "Please select a file inside the partition"
 
         # Update "File size" line in "Entry information"
         if self.selected_file_size:
             self.ui.edit_file_size.setText(sizeof_fmt(self.selected_file_size))
         else:
             self.ui.edit_file_size.setText("")
+
+        # Set the error message is the entry name is not set
+        if not self.entry_name:
+            error_msg = error_msg or "Please select a name for this entry"
+
+        # Update "Ok" button if everything is entered right
+        ok_button = self.ui.box_ok_cancel.button(QDialogButtonBox.StandardButton.Ok)
+        if error_msg:
+            self.ui.label_error.setText(error_msg)
+            ok_button.setEnabled(False)
+        else:
+            self.ui.label_error.setText("")
+            ok_button.setEnabled(True)
     
 
     def set_partitions_data(self, disks: List[Disk], default_partition: Partition):
