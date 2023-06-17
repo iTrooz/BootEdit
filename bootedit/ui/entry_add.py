@@ -67,7 +67,7 @@ class EntryAddWindow(QWidget):
         try:
             self.mount_point = mount(self.selected_partition)
         except MountError as e:
-            errmsg = (f"Failed to mount partition {self.selected_partition.device_name}. "
+            errmsg = (f"Failed to mount partition {self.selected_partition.device_name}.\n"
                                     f"Error: {e}")
             self.mount_point = None
             self.selected_partition = None
