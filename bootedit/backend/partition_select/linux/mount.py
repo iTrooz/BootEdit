@@ -4,7 +4,15 @@ import tempfile
 
 from .get_partitions import Partition
 
-def mount(partition: Partition):
+class MountError(RuntimeError):
+    pass
+
+def mount(partition: Partition) -> str:
+    """
+    Try to mount a partition. May throw MountError if the mount fails
+
+    :return: full path of the mount point directory
+    """
     tmpdir = tempfile.mkdtemp(prefix="tmp-bootedit-")
     
     mounted = False
