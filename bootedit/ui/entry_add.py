@@ -59,6 +59,19 @@ class EntryAddWindow(QWidget):
         self.selected_partition = partition
         self.update_widgets_status()
 
+    def set_file_and_update(self, file_full_path: str, file_rel_path: str) -> None:
+        if self.selected_file_relpath == file_rel_path:
+            return
+        
+        if file_full_path and file_rel_path:
+            self.selected_file_size = os.path.getsize(file_full_path)
+            self.selected_file_relpath = file_rel_path
+        else:
+            self.selected_file_size = ""
+            self.selected_file_relpath = ""
+
+        self.update_widgets_status()
+
     def update_widgets_status(self):
         # Only enable the file selection button if we selected a partition
         self.ui.but_manual_file.setDisabled(self.selected_partition == None)
@@ -120,8 +133,7 @@ class EntryAddWindow(QWidget):
                     part_item.setSelected(True)
     
     def partition_selected(self):
-        self.selected_file_relpath = None
-        self.selected_file_size = None
+        self.set_file_and_update(None, None)
 
         selected_list = self.ui.tree_manual_partition.selectedItems()
         if len(selected_list) == 1:
@@ -141,9 +153,7 @@ class EntryAddWindow(QWidget):
         selected_file = ret[0]
         if selected_file:
             if path_is_parent(root_folder, selected_file):
-                self.selected_file_relpath = os.path.relpath(selected_file, root_folder)
-                self.selected_file_size = os.path.getsize(selected_file)
-                self.update_widgets_status()
+                self.set_file_and_update(selected_file, os.path.relpath(selected_file, root_folder))
             else:
                 QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
         
