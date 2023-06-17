@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import *
 
 from bootedit.backend.partition_select import Disk, Partition
 from bootedit.backend.partition_select import mount, unmount
+from bootedit.backend.partition_select.linux.mount import MountError
 from bootedit.ui.qt.entry_add_ui import Ui_AddUEFIEntry
 
 # https://stackoverflow.com/a/37095733
@@ -36,6 +37,7 @@ class EntryAddWindow(QWidget):
         self.selected_file_relpath: str = None
         self.selected_file_size: int = None
         self.entry_name: str = None
+        self.mount_point: str = ""
 
         self.ui = Ui_AddUEFIEntry()
         self.ui.setupUi(self)
@@ -57,6 +59,19 @@ class EntryAddWindow(QWidget):
             return
         
         self.selected_partition = partition
+
+        # update mount point
+        if self.mount_point:
+            unmount(self.mount_point)
+
+        try:
+            self.mount_point = mount(self.selected_partition)
+        except MountError as e:
+            QMessageBox.critical(self, "", f"Failed to mount partition {self.selected_partition.device_name}. "
+                                    f"Error: {e}")
+            
+            self.mount_point = None
+            self.selected_partition = None
 
         self.set_file_and_update(None, None, update=False)
 
@@ -149,14 +164,12 @@ class EntryAddWindow(QWidget):
 
         
     def select_file(self):
-        root_folder = mount(self.selected_partition)
-        ret = QFileDialog.getOpenFileName(directory=root_folder)
+        ret = QFileDialog.getOpenFileName(directory=self.mount_point)
 
         selected_file = ret[0]
         if selected_file:
-            if path_is_parent(root_folder, selected_file):
-                self.set_file_and_update(selected_file, os.path.relpath(selected_file, root_folder))
+            if path_is_parent(self.mount_point, selected_file):
+                self.set_file_and_update(selected_file, os.path.relpath(selected_file, self.mount_point))
             else:
                 QMessageBox.critical(self, "", "File selected is not inside the mounted partition")
-        
-        unmount(root_folder)
+
