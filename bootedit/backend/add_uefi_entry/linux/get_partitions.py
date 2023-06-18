@@ -15,13 +15,14 @@ class Disk:
         return "Disk(name={}, partitions={})".format(self.name, self.partitions)
 
 class Partition:
-    def __init__(self, device_name: str, part_uuid: str, type: str) -> None:
+    def __init__(self, disk: Disk, device_name: str, part_uuid: str, type: str) -> None:
+        self.disk = disk
         self.device_name = device_name
         self.part_uuid = part_uuid
         self.type = type
 
     def __repr__(self) -> str:
-        return "Partition(device_name={}, part_uuid={}, type={})".format(self.device_name, self.part_uuid, self.type)
+        return "Partition(disk=Disk(device_name={}, ...), device_name={}, part_uuid={}, type={})".format(self.disk.name, self.device_name, self.part_uuid, self.type)
 
 def trim_number(input_str: str):
     """
@@ -101,7 +102,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(name=disk_name)
             disks[disk_name] = disk
 
-        partition = Partition(device_name=device_name, part_uuid=part_uuid, type=part_type)
+        partition = Partition(disk=disk, device_name=device_name, part_uuid=part_uuid, type=part_type)
         disk.partitions.append(partition)
 
         if part_uuid == curr_entry_loc.sig_id:

@@ -1,4 +1,5 @@
 from PyQt6.QtCore import Qt
+from bootedit.backend.add_uefi_entry import add_uefi_entry
 from bootedit.backend.add_uefi_entry import Partition, get_partitions
 from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
 
@@ -14,4 +15,9 @@ class AddUEFIEntryLogic:
         self.window.show()
 
     def add_uefi_entry(self, partition: Partition, rel_file_path: str, entry_name: str) -> None:
-        print(f"add entry {partition} {rel_file_path} {entry_name}")
+
+        # Ensure the format of the relative file path in the partition (should start with the character '\' )
+        if rel_file_path[0] != "\\":
+            rel_file_path = "\\" + rel_file_path
+        
+        add_uefi_entry(partition, rel_file_path, entry_name)
