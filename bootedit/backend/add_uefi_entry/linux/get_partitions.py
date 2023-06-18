@@ -9,7 +9,7 @@ from bootedit.backend.fv_ext import parse_file_path_list, get_parsed_current_boo
 class Disk:
     def __init__(self, name: str) -> None:
         self.name = name
-        self.partitions = []
+        self.partitions: List[Partition] = []
 
     def __repr__(self) -> str:
         return "Disk(name={}, partitions={})".format(self.name, self.partitions)
