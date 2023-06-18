@@ -110,7 +110,7 @@ class EntryAddWindow(QWidget):
             error_msg = error_msg or "Please select a partition"
             self.ui.edit_partition.setText("")
 
-        # Update "Partition" line in "Entry information"
+        # Update "File" line in "Entry information"
         if self.selected_file_relpath:
             self.ui.edit_file.setText(self.selected_file_relpath)
         else:
