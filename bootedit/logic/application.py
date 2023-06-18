@@ -1,9 +1,9 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
-from bootedit.logic.add_uefi_entry import EntryAddLogic
+from bootedit.logic.add_uefi_entry import AddUEFIEntryLogic
 
 from bootedit.ui.main_window import MainWindow
-from bootedit.ui.add_uefi_entry import EntryAddWindow
+from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
 from bootedit.backend.backend import Backend
 from bootedit.backend.add_uefi_entry import get_partitions
 
@@ -29,7 +29,7 @@ class ApplicationLogic(QApplication):
         self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())
 
     def show_add_entry_window(self):
-        self.entry_add = EntryAddLogic()
+        self.entry_add = AddUEFIEntryLogic()
         self.entry_add.show_window()
 
     def run(self) -> int:

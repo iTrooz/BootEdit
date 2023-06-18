@@ -1,11 +1,11 @@
 from PyQt6.QtCore import Qt
 from bootedit.backend.add_uefi_entry import Partition, get_partitions
-from bootedit.ui.add_uefi_entry import EntryAddWindow
+from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
 
 
-class EntryAddLogic:
+class AddUEFIEntryLogic:
     def __init__(self) -> None:
-        self.window = EntryAddWindow()
+        self.window = AddUEFIEntryWindow()
         self.window.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.window.set_partitions_data(*get_partitions())
         self.window.add_uefi_entry_callback = self.add_uefi_entry

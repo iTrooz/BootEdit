@@ -34,7 +34,7 @@ def sizeof_fmt(num: int, suffix: str="B") -> str:
     return f"{num:.1f}Yi{suffix}"
 
 
-class EntryAddWindow(QWidget):
+class AddUEFIEntryWindow(QWidget):
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
