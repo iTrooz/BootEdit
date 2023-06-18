@@ -10,12 +10,10 @@ class MainWindow(QWidget):
 
     def __init__(self, backend):
         super().__init__()
-        self.title = 'QListWidget with Move Up & Down'
-
         self.backend = backend
 
     def init(self):
-        self.setWindowTitle(self.title)
+        self.setWindowTitle("Boot entries editor (UEFI)")
  
         windowLayout = QVBoxLayout()
         self.setLayout(windowLayout)
