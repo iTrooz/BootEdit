@@ -63,6 +63,14 @@ class EntryAddWindow(QWidget):
 
         self.ui.edit_entry_name.textEdited.connect(self.entry_name_line_edit_edited_slot)
 
+        self.ui.edit_entry_name.textEdited.connect(self.entry_name_line_edit_edited_slot)
+
+        ok_button = self.ui.box_ok_cancel.button(QDialogButtonBox.StandardButton.Ok)
+        ok_button.clicked.connect(self.ok_button_clicked_slot)
+        
+        cancel_button = self.ui.box_ok_cancel.button(QDialogButtonBox.StandardButton.Cancel)
+        cancel_button.clicked.connect(lambda: self.close())
+
         self.update_widgets_errors()
 
     # ----- Partition stuff
@@ -304,3 +312,6 @@ class EntryAddWindow(QWidget):
 
                 if partition == default_partition:
                     part_item.setSelected(True)
+
+    def ok_button_clicked_slot(self):
+        pass
