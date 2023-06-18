@@ -48,19 +48,3 @@ class MainWindow(QWidget):
         for entry in entries:
             self.table.add_movable_item(entry.name)
 
-        # self.list_w.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
-
-    def moveUp(self):
-        print("a")
-        currentRow = self.list_w.currentRow()
-        currentItem = self.list_w.takeItem(currentRow)
-        self.list_w.insertItem(currentRow - 1, currentItem)
-        self.list_w.setCurrentRow(currentRow - 1)
-        self.list_w.setItemWidget
-
-    def moveDown(self):
-        print("b")
-        currentRow = self.list_w.currentRow()
-        currentItem = self.list_w.takeItem(currentRow)
-        self.list_w.insertItem(currentRow + 1, currentItem)
-        self.list_w.setCurrentRow(currentRow + 1)
