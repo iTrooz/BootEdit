@@ -66,24 +66,26 @@ class EntryAddWindow(QWidget):
         
         self.selected_partition = partition
 
-        # update mount point
+        # remove from old mount point
         if self.mount_point:
             unmount(self.mount_point)
-
-        try:
-            self.mount_point = mount(self.selected_partition)
-        except MountError as e:
-            errmsg = (f"Failed to mount partition {self.selected_partition.device_name}.\n"
-                                    f"Error: {e}")
             self.mount_point = None
-            self.selected_partition = None
-            self.set_file_and_update(None, None, update=False)
 
-            self.update_widgets_status()
+        if self.selected_partition:
+            try:
+                self.mount_point = mount(self.selected_partition)
+            except MountError as e:
+                errmsg = (f"Failed to mount partition {self.selected_partition.device_name}.\n"
+                                        f"Error: {e}")
+                self.mount_point = None
+                self.selected_partition = None
+                self.set_file_and_update(None, None, update=False)
 
-            QMessageBox.critical(self, "", errmsg)
+                self.update_widgets_status()
+
+                QMessageBox.critical(self, "", errmsg)
             
-            return
+                return
 
         self.set_file_and_update(None, None, update=False)
 
