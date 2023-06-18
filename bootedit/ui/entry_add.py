@@ -240,8 +240,12 @@ class EntryAddWindow(QWidget):
         # Update "Partition" line in "Entry information"
         if self.selected_partition:
             clear_line_edit_color(self.ui.edit_partition)
+            self.ui.edit_file.setEnabled(True)
         else:
+            # If a partition is not selected, we shouldn't even be able to edit the field
             set_line_edit_color(self.ui.edit_partition)
+            self.ui.edit_file.setEnabled(False)
+
             if self.ui.edit_partition.text():
                 error_msg = error_msg or "Invalid partition selected"
             else:
@@ -257,10 +261,10 @@ class EntryAddWindow(QWidget):
                     error_msg = error_msg or "Invalid file selected"
                 else:
                     error_msg = error_msg or "Please select a file inside the partition"
-            else:
-                # If a partition is not selected, we shouldn't even be able to edit the field
-                clear_line_edit_color(self.ui.edit_file)
-                self.ui.edit_file.setEnabled(False)
+        
+        # Reset the red rectangle if we can't interact with the button
+        if not self.ui.edit_file.isEnabled():
+            clear_line_edit_color(self.ui.edit_file)
 
         # Set the error message is the entry name is not set
         if self.entry_name:
