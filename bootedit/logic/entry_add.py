@@ -8,10 +8,10 @@ class EntryAddLogic:
         self.window = EntryAddWindow()
         self.window.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.window.set_partitions_data(*get_partitions())
-        self.window.add_entry = self.add_entry
+        self.window.add_uefi_entry_callback = self.add_uefi_entry
         
     def show_window(self) -> None:
         self.window.show()
 
-    def add_entry(self, partition: Partition, rel_path: str) -> None:
-        print(f"add entry {partition} {rel_path}")
+    def add_uefi_entry(self, partition: Partition, rel_file_path: str, entry_name: str) -> None:
+        print(f"add entry {partition} {rel_file_path} {entry_name}")

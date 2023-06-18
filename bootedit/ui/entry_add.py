@@ -314,4 +314,7 @@ class EntryAddWindow(QWidget):
                     part_item.setSelected(True)
 
     def ok_button_clicked_slot(self):
-        pass
+        self.add_uefi_entry_callback(self.selected_partition, self.selected_file_relpath, self.entry_name)
+
+    def add_uefi_entry_callback(self, partition: Partition, rel_file_path: str, entry_name: str):
+        raise NotImplementedError("Override this to get results")
