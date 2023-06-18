@@ -18,6 +18,12 @@ def path_is_parent(parent_path: str, child_path: str) -> bool:
     return os.path.commonpath([parent_path]) == os.path.commonpath([parent_path, child_path])
 
 
+def set_line_edit_color(line_edit: QLineEdit):
+    line_edit.setStyleSheet("QLineEdit{border:1px solid red}")
+
+def clear_line_edit_color(line_edit: QLineEdit):
+    line_edit.setStyleSheet("")
+
 
 # https://stackoverflow.com/a/1094933
 def sizeof_fmt(num: int, suffix: str="B") -> str:
@@ -106,16 +112,20 @@ class EntryAddWindow(QWidget):
         # Update "Partition" line in "Entry information"
         if self.selected_partition:
             self.ui.edit_partition.setText(self.selected_partition.device_name)
+            clear_line_edit_color(self.ui.edit_partition)
         else:
             error_msg = error_msg or "Please select a partition"
             self.ui.edit_partition.setText("")
+            set_line_edit_color(self.ui.edit_partition)
 
         # Update "File" line in "Entry information"
         if self.selected_file_relpath:
             self.ui.edit_file.setText(self.selected_file_relpath)
+            clear_line_edit_color(self.ui.edit_file)
         else:
             self.ui.edit_file.setText("")
             error_msg = error_msg or "Please select a file inside the partition"
+            set_line_edit_color(self.ui.edit_file)
 
         # Update "File size" line in "Entry information"
         if self.selected_file_size:
@@ -124,7 +134,10 @@ class EntryAddWindow(QWidget):
             self.ui.edit_file_size.setText("")
 
         # Set the error message is the entry name is not set
-        if not self.entry_name:
+        if self.entry_name:
+            clear_line_edit_color(self.ui.edit_entry_name)
+        else:
+            set_line_edit_color(self.ui.edit_entry_name)
             error_msg = error_msg or "Please select a name for this entry"
 
         # Update "Ok" button if everything is entered right
