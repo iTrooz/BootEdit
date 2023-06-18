@@ -1,6 +1,6 @@
 from PyQt6.QtCore import Qt
-from bootedit.backend.partition_select import Partition, get_partitions
-from bootedit.ui.entry_add import EntryAddWindow
+from bootedit.backend.add_uefi_entry import Partition, get_partitions
+from bootedit.ui.add_uefi_entry import EntryAddWindow
 
 
 class EntryAddLogic:

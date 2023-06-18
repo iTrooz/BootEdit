@@ -3,10 +3,10 @@ import os
 
 from PyQt6.QtWidgets import *
 
-from bootedit.backend.partition_select import Disk, Partition
-from bootedit.backend.partition_select import mount, unmount
-from bootedit.backend.partition_select.linux.mount import MountError
-from bootedit.ui.qt.entry_add_ui import Ui_AddUEFIEntry
+from bootedit.backend.add_uefi_entry import Disk, Partition
+from bootedit.backend.add_uefi_entry import mount, unmount
+from bootedit.backend.add_uefi_entry.linux.mount import MountError
+from bootedit.ui.qt.add_uefi_entry_ui import Ui_AddUEFIEntry
 
 # https://stackoverflow.com/a/37095733
 def path_is_parent(parent_path: str, child_path: str) -> bool:

@@ -1,11 +1,11 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
-from bootedit.logic.entry_add import EntryAddLogic
+from bootedit.logic.add_uefi_entry import EntryAddLogic
 
 from bootedit.ui.main_window import MainWindow
-from bootedit.ui.entry_add import EntryAddWindow
+from bootedit.ui.add_uefi_entry import EntryAddWindow
 from bootedit.backend.backend import Backend
-from bootedit.backend.partition_select import get_partitions
+from bootedit.backend.add_uefi_entry import get_partitions
 
 # TODO maybe remove this class altogether
 class ApplicationLogic(QApplication):
