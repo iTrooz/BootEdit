@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
+from bootedit.backend.get_entries import get_uefi_entries
 from bootedit.logic.add_uefi_entry import AddUEFIEntryLogic
 
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
-from bootedit.backend.backend import Backend
 from bootedit.backend.add_uefi_entry import get_partitions
 
 # TODO maybe remove this class altogether
@@ -15,7 +15,6 @@ class ApplicationLogic:
         partition selector window. None else
     """
     def __init__(self):
-        self.backend = Backend()
         self.partition_selector = None
 
     def init(self):
@@ -29,7 +28,7 @@ class ApplicationLogic:
         self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())
 
     def reload_entries(self) -> None:
-        self.window.set_entries(self.backend.get_uefi_entries())
+        self.window.set_entries(get_uefi_entries())
 
     def show_add_entry_window(self):
         self.entry_add = AddUEFIEntryLogic()
