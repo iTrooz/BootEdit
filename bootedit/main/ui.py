@@ -2,7 +2,7 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from bootedit.logic.application import ApplicationLogic
+from bootedit.logic.app_logic import ApplicationLogic
 
 def run_ui() -> int:
     app = QApplication(sys.argv)
