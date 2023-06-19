@@ -1,16 +1,14 @@
-import signal
-
 from PyQt6.QtWidgets import *
 
+from bootedit.backend.entry import UEFIEntry
 from bootedit.ui.orderable_list import OrderableList
 from bootedit.ui import utils
 
 # root widget
 class MainWindow(QWidget):
 
-    def __init__(self, backend):
+    def __init__(self):
         super().__init__()
-        self.backend = backend
 
     def init(self):
         self.setWindowTitle("Boot entries editor (UEFI)")
@@ -39,12 +37,9 @@ class MainWindow(QWidget):
         self.table = OrderableList()
         windowLayout.addWidget(self.table)
 
-        self.reload_table()
-
-    def reload_table(self):
+    def set_entries(self, entries: list[UEFIEntry]) -> None:
         self.table.clear()
 
-        entries = self.backend.get_uefi_entries()
         for entry in entries:
             self.table.add_movable_item(entry.name)
 

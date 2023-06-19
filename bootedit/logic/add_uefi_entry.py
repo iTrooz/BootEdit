@@ -10,6 +10,12 @@ class AddUEFIEntryLogic:
         self.window.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.window.set_partitions_data(*get_partitions())
         self.window.add_uefi_entry_callback = self.add_uefi_entry
+
+        self.window.closeEvent = lambda _: self.on_close_evt()
+
+    def on_close_evt(self) -> None:
+        # Override this
+        pass
         
     def show_window(self) -> None:
         self.window.show()

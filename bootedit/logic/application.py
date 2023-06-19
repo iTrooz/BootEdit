@@ -23,14 +23,23 @@ class ApplicationLogic(QApplication):
         self.init_ui()
 
     def init_ui(self):
-        self.window = MainWindow(self.backend)
+        self.window = MainWindow()
         self.window.init()
+        self.reload_entries()
 
         self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())
+
+    def reload_entries(self) -> None:
+        self.window.set_entries(self.backend.get_uefi_entries())
 
     def show_add_entry_window(self):
         self.entry_add = AddUEFIEntryLogic()
         self.entry_add.show_window()
+        self.entry_add.on_close_evt = self.on_close_add_entry_window
+
+    def on_close_add_entry_window(self) -> None:
+        self.reload_entries()
+
 
     def run(self) -> int:
         self.window.show()
