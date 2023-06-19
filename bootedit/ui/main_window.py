@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import *
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from bootedit.backend.entry import UEFIEntry
 from bootedit.ui.orderable_list import OrderableList

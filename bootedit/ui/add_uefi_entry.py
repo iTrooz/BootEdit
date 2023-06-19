@@ -1,7 +1,7 @@
 from typing import List, Optional
 import os
 
-from PyQt6.QtWidgets import *
+from PyQt6.QtWidgets import QWidget, QLineEdit, QDialogButtonBox, QMessageBox, QFileDialog, QTreeWidgetItem
 
 from bootedit.backend.add_uefi_entry import Disk, Partition
 from bootedit.backend.add_uefi_entry import mount, unmount, add_uefi_entry

@@ -1,3 +1,3 @@
-from .get_partitions import *
+from .get_partitions import Disk, Partition, get_partitions
 from .mount import mount, unmount
 from .add_uefi_entry import add_uefi_entry

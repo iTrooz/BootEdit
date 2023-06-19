@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import *
+from PyQt6.QtWidgets import QStyle, QPushButton
 from PyQt6 import QtGui
 import os
 

@@ -1,8 +1,6 @@
 from typing import Union
 
-from PyQt6.QtWidgets import *
-from PyQt6.QtGui import *
-from PyQt6.QtCore import *
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QListWidget, QListWidgetItem, QAbstractItemView
 
 from bootedit.ui import utils
 
