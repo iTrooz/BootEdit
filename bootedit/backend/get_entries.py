@@ -11,6 +11,7 @@ def get_uefi_entries() -> list[str]:
             load_option = get_parsed_boot_entry(entry_id)
 
             my_entry = UEFIEntry()
+            my_entry.id = entry_id
             my_entry.name = load_option.description
             my_entry.attributes = load_option.attributes
             

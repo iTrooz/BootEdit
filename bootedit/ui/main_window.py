@@ -39,5 +39,6 @@ class MainWindow(QWidget):
         self.table.clear()
 
         for entry in entries:
-            self.table.add_movable_item(entry.name)
+            item, item_widget = self.table.add_movable_item(entry.name)
+            item.entry = entry
 

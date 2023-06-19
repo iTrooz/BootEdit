@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Tuple
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QListWidget, QListWidgetItem, QAbstractItemView
 
@@ -65,7 +65,7 @@ class OrderableList(QListWidget):
         button.setSizePolicy(sp)
 
 
-    def add_movable_item(self, label, index=-1) -> OrderableListItem:
+    def add_movable_item(self, label, index=-1) -> Tuple[QListWidgetItem, OrderableListItem]:
         item = QListWidgetItem(parent=None)
         
         if index == -1:
@@ -88,8 +88,11 @@ class OrderableList(QListWidget):
 
         self.update_item_buttons()
         
-        return item_widget
-    
+        return item, item_widget
+
+
+    # TODO keep entry associated to item when moving
+
     def move_up(self, item, item_widget):
         label = item_widget.text()
         row = self.row(item)
