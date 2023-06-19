@@ -9,7 +9,6 @@ def run_ui() -> int:
     app.setStyle("fusion")
 
     app_logic = ApplicationLogic()
-    app_logic.init()
     app_logic.show_window()
     
     return app.exec()

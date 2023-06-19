@@ -9,8 +9,6 @@ class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
-
-    def init(self):
         self.setWindowTitle("Boot entries editor (UEFI)")
  
         windowLayout = QVBoxLayout()

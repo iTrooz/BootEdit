@@ -15,13 +15,10 @@ class ApplicationLogic:
     """
     def __init__(self):
         self.partition_selector = None
-
-    def init(self):
         self.init_ui()
 
     def init_ui(self):
         self.window = MainWindow()
-        self.window.init()
         self.reload_entries()
 
         self.window.add_button.clicked.connect(lambda: self.show_add_entry_window())
