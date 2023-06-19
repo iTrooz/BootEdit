@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from bootedit.backend.get_entries import get_uefi_entries
-from bootedit.logic.add_uefi_entry import AddUEFIEntryLogic
 
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
@@ -31,11 +30,12 @@ class ApplicationLogic:
         self.window.set_entries(get_uefi_entries())
 
     def show_add_entry_window(self):
-        self.entry_add = AddUEFIEntryLogic()
-        self.entry_add.show_window()
-        self.entry_add.on_close_evt = self.on_close_add_entry_window
+        self.entry_add = AddUEFIEntryWindow()
+        self.entry_add.set_partitions_data(*get_partitions())
+        self.entry_add.show()
+        self.entry_add.closeEvent = self.on_close_add_entry_window
 
-    def on_close_add_entry_window(self) -> None:
+    def on_close_add_entry_window(self, *args) -> None:
         self.reload_entries()
 
 

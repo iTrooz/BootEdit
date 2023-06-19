@@ -4,7 +4,7 @@ import os
 from PyQt6.QtWidgets import *
 
 from bootedit.backend.add_uefi_entry import Disk, Partition
-from bootedit.backend.add_uefi_entry import mount, unmount
+from bootedit.backend.add_uefi_entry import mount, unmount, add_uefi_entry
 from bootedit.backend.add_uefi_entry.linux.mount import MountError
 from bootedit.ui.qt.add_uefi_entry_ui import Ui_AddUEFIEntry
 
@@ -314,7 +314,10 @@ class AddUEFIEntryWindow(QWidget):
                     part_item.setSelected(True)
 
     def ok_button_clicked_slot(self):
-        self.add_uefi_entry_callback(self.selected_partition, self.selected_file_relpath, self.entry_name)
+        rel_file_path = self.selected_file_relpath
 
-    def add_uefi_entry_callback(self, partition: Partition, rel_file_path: str, entry_name: str):
-        raise NotImplementedError("Override this to get results")
+        # Ensure the format of the relative file path in the partition (should start with the character '\' )
+        if rel_file_path[0] != "\\":
+            rel_file_path = "\\" + rel_file_path
+        
+        add_uefi_entry(self.selected_partition, rel_file_path, self.entry_name)
