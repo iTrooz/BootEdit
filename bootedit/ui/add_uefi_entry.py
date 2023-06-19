@@ -321,3 +321,5 @@ class AddUEFIEntryWindow(QWidget):
             rel_file_path = "\\" + rel_file_path
         
         add_uefi_entry(self.selected_partition, rel_file_path, self.entry_name)
+
+        self.close()        
