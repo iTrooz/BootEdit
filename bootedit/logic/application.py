@@ -8,16 +8,15 @@ from bootedit.backend.backend import Backend
 from bootedit.backend.add_uefi_entry import get_partitions
 
 # TODO maybe remove this class altogether
-class ApplicationLogic(QApplication):
+class ApplicationLogic:
     """
     
     :attr partition_selector: widget representing the active (shown right now)
         partition selector window. None else
     """
-    def __init__(self, *kargs, **kwargs):
+    def __init__(self):
         self.backend = Backend()
         self.partition_selector = None
-        super().__init__(*kargs, **kwargs)
 
     def init(self):
         self.init_ui()
@@ -41,6 +40,5 @@ class ApplicationLogic(QApplication):
         self.reload_entries()
 
 
-    def run(self) -> int:
+    def show_window(self):
         self.window.show()
-        return self.exec()
