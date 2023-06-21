@@ -3,6 +3,8 @@ from typing import Optional
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 
+from firmware_variables.boot import get_boot_order, set_boot_order
+
 from bootedit.backend.entry import UEFIEntry
 from bootedit.backend.fv_ext.delete_boot_entry import delete_boot_entry
 from bootedit.backend.get_entries import get_uefi_entries
@@ -26,6 +28,8 @@ class ApplicationLogic:
         self.main_window.add_button.clicked.connect(lambda: self.show_add_entry_window())
 
         self.main_window.remove_button.clicked.connect(lambda: self.remove_selected_entry())
+
+        self.main_window.table.model().rowsMoved.connect(self.entry_moved)
 
     def remove_selected_entry(self) -> None:
         selected_list = self.main_window.table.selectedItems()
@@ -56,3 +60,18 @@ class ApplicationLogic:
 
     def show_window(self):
         self.main_window.show()
+
+    def entry_moved(self):
+        new_order = []
+        for row in range(self.main_window.table.count()):
+            item = self.main_window.table.item(row)
+            entry: UEFIEntry = item.entry
+            new_order.append(entry.id)
+
+        # juuust to be sure
+        old_order = get_boot_order()
+        assert sorted(old_order) == sorted(new_order)
+
+        set_boot_order(new_order)
+
+            
