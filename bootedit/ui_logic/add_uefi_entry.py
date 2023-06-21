@@ -2,6 +2,7 @@ from typing import List, Optional
 import os
 
 from PyQt6.QtWidgets import QWidget, QLineEdit, QDialogButtonBox, QMessageBox, QFileDialog, QTreeWidgetItem
+from PyQt6.QtCore import pyqtSignal
 
 from bootedit.backend.add_uefi_entry import Disk, Partition
 from bootedit.backend.add_uefi_entry import mount, unmount, add_uefi_entry
@@ -70,7 +71,13 @@ class AddUEFIEntryLogic:
         cancel_button = self.ui.box_ok_cancel.button(QDialogButtonBox.StandardButton.Cancel)
         cancel_button.clicked.connect(lambda: self.ui.close())
 
+        self.ui.closeEvent = lambda *args: self.close_event()
+
         self.update_widgets_errors()
+
+    def close_event():
+        # Override this
+        pass
 
     def show_window(self):
         self.ui.show()
@@ -324,4 +331,4 @@ class AddUEFIEntryLogic:
         
         add_uefi_entry(self.selected_partition, rel_file_path, self.entry_name)
 
-        self.close()        
+        self.ui.close()        

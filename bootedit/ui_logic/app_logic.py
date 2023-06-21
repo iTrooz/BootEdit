@@ -49,7 +49,7 @@ class ApplicationLogic:
         self.add_entry_window = AddUEFIEntryLogic()
         self.add_entry_window.set_partitions_data(*get_partitions())
         self.add_entry_window.show_window()
-        self.add_entry_window.closeEvent = self.on_close_add_entry_window
+        self.add_entry_window.close_event = self.on_close_add_entry_window
 
     def on_close_add_entry_window(self, *args) -> None:
         self.reload_entries()
