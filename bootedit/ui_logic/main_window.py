@@ -12,8 +12,9 @@ from bootedit.backend.add_uefi_entry import get_partitions
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui_logic.add_uefi_entry import AddUEFIEntryLogic
 
-class ApplicationLogic:
+class MainWindowLogic:
     """
+    Logic for the main window (and kinda the whole application)
     
     :attr partition_selector: widget representing the active (shown right now)
         partition selector window. None else
