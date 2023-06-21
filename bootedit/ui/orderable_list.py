@@ -37,6 +37,8 @@ class OrderableList(QListWidget):
         self.setDragEnabled(True)
         self.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
 
+
+        # rowsMoved() is emited exactly once when we move a row, either with buttons or drag&drop
         self.model().rowsMoved.connect(self.update_item_buttons)
 
     def update_item_buttons(self):
@@ -76,8 +78,8 @@ class OrderableList(QListWidget):
 
         # create widget associated with this item
         item_widget = OrderableListItem(parent=self, label=label)
-        item_widget.up_button.clicked.connect(lambda: self.move_up(item, item_widget))
-        item_widget.down_button.clicked.connect(lambda: self.move_down(item, item_widget))
+        item_widget.up_button.clicked.connect(lambda: self.move_up(item))
+        item_widget.down_button.clicked.connect(lambda: self.move_down(item))
 
         # associate it to the item
         self.setItemWidget(item, item_widget)
@@ -93,19 +95,14 @@ class OrderableList(QListWidget):
 
     # TODO keep entry associated to item when moving
 
-    def move_up(self, item, item_widget):
-        label = item_widget.text()
+    def move_up(self, item):
         row = self.row(item)
+        index = self.rootIndex()
 
-        # this should also delete the item_widget object, so accessing it after this will crash the program
-        self.takeItem(row)
+        self.model().moveRow(index, row, index, row-1)
 
-        self.add_movable_item(label=label, index=row-1)
-
-    def move_down(self, item, item_widget):
-        label = item_widget.text()
+    def move_down(self, item):
         row = self.row(item)
-
-        # this should also delete the item_widget object, so accessing it after this will crash the program
-        self.takeItem(row)
-        self.add_movable_item(label=label, index=row+1)
+        index = self.rootIndex()
+        
+        self.model().moveRow(index, row, index, row+2)
