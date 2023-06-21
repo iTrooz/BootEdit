@@ -10,7 +10,6 @@ from bootedit.backend.add_uefi_entry import get_partitions
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui_logic.add_uefi_entry import AddUEFIEntryLogic
 
-# TODO maybe remove this class altogether
 class ApplicationLogic:
     """
     
