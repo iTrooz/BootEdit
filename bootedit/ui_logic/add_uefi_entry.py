@@ -157,7 +157,7 @@ class AddUEFIEntryLogic:
 
             self.update_widgets_errors()
 
-            QMessageBox.critical(self, "", f"Failed to mount partition {partition.device_name}.\n"
+            QMessageBox.critical(self.ui, "", f"Failed to mount partition {partition.device_name}.\n"
                                     f"Error: {error}")
         elif partition == None:
             self.selected_partition = None
