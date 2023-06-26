@@ -35,9 +35,3 @@ class MainWindow(QWidget):
 
         self.table = EntryTableView()
         windowLayout.addWidget(self.table)
-
-    def set_entries(self, entries: list[UEFIEntry]) -> None:
-        self.table.clear_rows()
-
-        for entry in entries:
-            self.table.add_entry(entry)

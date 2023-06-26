@@ -50,7 +50,7 @@ class MainWindowLogic:
 
 
     def reload_entries(self) -> None:
-        self.main_window.set_entries(get_uefi_entries())
+        self.set_entries(get_uefi_entries())
 
     def show_add_entry_window(self):
         self.add_entry_window = AddUEFIEntryLogic()
@@ -78,4 +78,9 @@ class MainWindowLogic:
 
         set_boot_order(new_order)
 
+    def set_entries(self, entries: list[UEFIEntry]) -> None:
+        self.main_window.table.clear_rows()
+
+        for entry in entries:
+            self.main_window.table.add_entry(entry)
             
