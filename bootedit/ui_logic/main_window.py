@@ -30,7 +30,7 @@ class MainWindowLogic:
 
         self.main_window.remove_button.clicked.connect(lambda: self.remove_selected_entry())
 
-        self.main_window.table.model().rowsMoved.connect(self.entry_moved)
+        self.main_window.table.row_moved.connect(self.entry_moved)
 
     def remove_selected_entry(self) -> None:
         selected_list = self.main_window.table.selectedItems()
@@ -64,8 +64,8 @@ class MainWindowLogic:
 
     def entry_moved(self):
         new_order = []
-        for row in range(self.main_window.table.count()):
-            item = self.main_window.table.item(row)
+        for row in range(self.main_window.table.model().rowCount()):
+            item = self.main_window.table.model().item(row, 0)
             entry: UEFIEntry = item.entry
             new_order.append(entry.id)
 

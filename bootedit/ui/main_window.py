@@ -1,7 +1,8 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from bootedit.backend.entry import UEFIEntry
-from bootedit.ui.orderable_list import OrderableList
+from bootedit.ui.entry_table import EntryTableView
+from bootedit.ui.orderable_table import OrderableTableView
 from bootedit.ui import utils
 
 # root widget
@@ -32,13 +33,11 @@ class MainWindow(QWidget):
         # put the buttons to the left by adding a spacing to the right
         header.addStretch()
 
-        self.table = OrderableList()
+        self.table = EntryTableView()
         windowLayout.addWidget(self.table)
 
     def set_entries(self, entries: list[UEFIEntry]) -> None:
-        self.table.clear()
+        self.table.clear_rows()
 
         for entry in entries:
-            item, item_widget = self.table.add_movable_item(entry.name)
-            item.entry = entry
-
+            self.table.add_entry(entry)
