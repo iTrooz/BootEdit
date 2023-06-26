@@ -21,7 +21,7 @@ class EntryTableView(OrderableTableView):
         entry_name.entry = entry
         self.add_row([
             entry_name,
-            standard_item_text("/dev/nvme0n1"),
-            standard_item_text("\\EFI\\grub\\bootx64.efi"),
+            standard_item_text(entry.partition),
+            standard_item_text(entry.file_path),
         ])
     
