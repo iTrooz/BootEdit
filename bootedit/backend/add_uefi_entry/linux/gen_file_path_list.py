@@ -6,7 +6,7 @@ from firmware_variables.device_path import DevicePathList, DevicePath, DevicePat
 from firmware_variables.device_path import MediaDevicePathSubtype, EndOfHardwareDevicePathSubtype
 
 from bootedit.backend.add_uefi_entry.linux.get_partitions import Partition
-from bootedit.backend.fv_ext.entry_loc import EFI_HARD_DRIVE
+from bootedit.backend.fv_ext.load_option_path import EFI_HARD_DRIVE
 
 def get_end_number(s: str) -> int:
     "get number at the end of string"

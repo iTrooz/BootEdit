@@ -1,8 +1,11 @@
-from bootedit.backend.fv_ext.entry_loc import EntryLocation
+from firmware_variables.load_option import LoadOption
+from bootedit.backend.fv_ext.load_option_path import LoadOptionPath, parse_file_path_list
 
 
 class UEFIEntry:
     """
+    elements of an UEFI entry that an user will interact with
+
     :attr id: ID of this entry (the 4 hex digit of the Boot### variable in decimal form)
     :attr name: Name of this entry
     :attr attributes: bitfield with flags of this entry
@@ -12,4 +15,17 @@ class UEFIEntry:
         self.id = 0
         self.name = ""
         self.attributes = 0
-        self.location: EntryLocation = None
+        self.partition = ""
+        self.file_path = ""
+
+    @staticmethod
+    def from_load_option(entry_id: int, load_option: LoadOption):
+        entry = UEFIEntry()
+        entry.id = entry_id
+        entry.name = load_option.description
+        entry.attributes = load_option.attributes
+
+        load_option_path = parse_file_path_list(load_option.file_path_list)
+        entry.file_path = load_option_path.file_path
+
+        return entry

@@ -11,7 +11,7 @@ from firmware_variables import get_variable
 # Hard drive media device path (UEFI spec release 2.10 subsection 10.3.5.1)
 EFI_HARD_DRIVE = struct.Struct("<IQQQQBB")
 
-class EntryLocation:
+class LoadOptionPath:
     """
     :attr table_id: ID of this partition on the partition table of the device
     :attr sig_id: Unique ID of this partition, usually represented witht he UUID format
@@ -30,8 +30,8 @@ class EntryLocation:
         return "EntryLocation(table_id={}, sig_id={}, file_path={})".format(self.table_id, self.sig_id, self.file_path)
 
 
-def parse_file_path_list(file_path_list: DevicePathList) -> EntryLocation:
-    entry_location = EntryLocation()
+def parse_file_path_list(file_path_list: DevicePathList) -> LoadOptionPath:
+    entry_location = LoadOptionPath()
     for path in file_path_list.paths:
 
         if path.subtype == MediaDevicePathSubtype.HARD_DRIVE:

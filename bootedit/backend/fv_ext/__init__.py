@@ -1,3 +1,3 @@
-from .entry_loc import parse_file_path_list, EntryLocation
+from .load_option_path import parse_file_path_list, LoadOptionPath
 from .current_boot_entry import get_parsed_current_boot_entry
 
