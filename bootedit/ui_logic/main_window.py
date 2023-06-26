@@ -33,10 +33,10 @@ class MainWindowLogic:
         self.main_window.table.row_moved.connect(self.entry_moved)
 
     def remove_selected_entry(self) -> None:
-        selected_list = self.main_window.table.selectedItems()
+        current_index = self.main_window.table.currentIndex()
         entry: Optional[UEFIEntry] = None
-        if len(selected_list) == 1:
-            item = selected_list[0]
+        if current_index:
+            item = self.main_window.table.model().item(current_index.row(), 0)
             if hasattr(item, "entry"):
                 entry = item.entry
         
@@ -44,6 +44,9 @@ class MainWindowLogic:
             delete_boot_entry(entry.id)
 
             self.reload_entries()
+        else:
+            print("Warning: No entry selected")
+
 
 
     def reload_entries(self) -> None:
