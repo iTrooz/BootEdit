@@ -58,7 +58,7 @@ class MainWindowLogic:
         self.add_entry_window.show_window()
         self.add_entry_window.close_event = self.on_close_add_entry_window
 
-    def on_close_add_entry_window(self, *args) -> None:
+    def on_close_add_entry_window(self, *_) -> None:
         self.reload_entries()
 
 

@@ -71,7 +71,7 @@ class AddUEFIEntryLogic:
         cancel_button = self.ui.box_ok_cancel.button(QDialogButtonBox.StandardButton.Cancel)
         cancel_button.clicked.connect(lambda: self.ui.close())
 
-        self.ui.closeEvent = lambda *args: self.close_event()
+        self.ui.closeEvent = lambda *_: self.close_event()
 
         self.update_widgets_errors()
 
