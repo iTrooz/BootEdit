@@ -1,3 +1,6 @@
+from bootedit.backend.fv_ext.entry_loc import EntryLocation
+
+
 class UEFIEntry:
     """
     :attr id: ID of this entry (the 4 hex digit of the Boot### variable in decimal form)
@@ -9,4 +12,4 @@ class UEFIEntry:
         self.id = 0
         self.name = ""
         self.attributes = 0
-        self.location = ""
+        self.location: EntryLocation = None
