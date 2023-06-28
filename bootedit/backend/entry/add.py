@@ -1,9 +1,9 @@
-from firmware_variables.load_option import LoadOption, LoadOptionAttributes
-from firmware_variables import get_variable, FVError, set_parsed_boot_entry
-from firmware_variables import get_boot_order, set_boot_order
+from bootedit.backend.partition import Partition
+from bootedit.backend.entry.gen_file_path_list.common import gen_file_path_list
 
-from bootedit.backend.add_uefi_entry.linux.get_partitions import Partition
-from bootedit.backend.add_uefi_entry.linux.gen_file_path_list import gen_file_path_list
+from firmware_variables import get_variable, FVError, LoadOption
+from firmware_variables import set_parsed_boot_entry, get_boot_order, set_boot_order
+from firmware_variables.load_option import LoadOptionAttributes
 
 
 def get_unused_boot_entry_id() -> int:

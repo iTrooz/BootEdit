@@ -1,5 +1,5 @@
 from firmware_variables.load_option import LoadOption
-from bootedit.backend.add_uefi_entry import get_partitions
+from bootedit.backend.partition import get_partitions
 from bootedit.backend.fv_ext.load_option_path import LoadOptionPath, parse_file_path_list
 
 

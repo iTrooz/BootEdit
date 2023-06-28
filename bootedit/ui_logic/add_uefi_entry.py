@@ -4,11 +4,10 @@ import os
 from PyQt6.QtWidgets import QWidget, QLineEdit, QDialogButtonBox, QMessageBox, QFileDialog, QTreeWidgetItem
 from PyQt6.QtCore import pyqtSignal
 
-from bootedit.backend.add_uefi_entry import Disk, Partition
-from bootedit.backend.add_uefi_entry import mount, unmount, add_uefi_entry
-from bootedit.backend.add_uefi_entry.linux.mount import MountError
+from bootedit.backend.partition import Disk, Partition
+from bootedit.backend.mount import mount, unmount, MountError
+from bootedit.backend.entry import add_uefi_entry
 from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
-from bootedit.ui.qt.add_uefi_entry_ui import Ui_AddUEFIEntry
 
 # https://stackoverflow.com/a/37095733
 def path_is_parent(parent_path: str, child_path: str) -> bool:

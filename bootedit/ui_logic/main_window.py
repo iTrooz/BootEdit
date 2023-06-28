@@ -1,14 +1,13 @@
 from typing import Optional
 
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QMessageBox
 from PyQt6.QtCore import Qt
 
 from firmware_variables.boot import get_boot_order, set_boot_order
 
-from bootedit.backend.entry import UEFIEntry
+from bootedit.backend.entry import UEFIEntry, get_uefi_entries
 from bootedit.backend.fv_ext.delete_boot_entry import delete_boot_entry
-from bootedit.backend.get_entries import get_uefi_entries
-from bootedit.backend.add_uefi_entry import get_partitions
+from bootedit.backend.partition import get_partitions
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui_logic.add_uefi_entry import AddUEFIEntryLogic
 
@@ -33,6 +32,8 @@ class MainWindowLogic:
         self.main_window.table.row_moved.connect(self.entry_moved)
 
     def remove_selected_entry(self) -> None:
+
+
         current_index = self.main_window.table.currentIndex()
         entry: Optional[UEFIEntry] = None
         if current_index:
@@ -40,13 +41,16 @@ class MainWindowLogic:
             if hasattr(item, "entry"):
                 entry = item.entry
         
-        if entry:
+        if not entry:
+            print("Warning: No entry selected")
+            return
+        
+        SB = QMessageBox.StandardButton
+        ret = QMessageBox.question(self.main_window, "", f"Are you sure you want to remove the entry '{entry.name}' ?", SB.Yes | SB.No)
+        if ret ==  SB.Yes:
             delete_boot_entry(entry.id)
 
             self.reload_entries()
-        else:
-            print("Warning: No entry selected")
-
 
 
     def reload_entries(self) -> None:

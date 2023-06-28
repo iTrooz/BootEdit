@@ -2,10 +2,9 @@ import subprocess
 import os
 import tempfile
 
-from .get_partitions import Partition
+from bootedit.backend.mount.type import MountError
 
-class MountError(RuntimeError):
-    pass
+from ..partition import Partition
 
 def mount(partition: Partition) -> str:
     """

@@ -5,24 +5,7 @@ import subprocess
 from typing import Tuple, List, Optional
 
 from bootedit.backend.fv_ext import parse_file_path_list, get_parsed_current_boot_entry
-
-class Disk:
-    def __init__(self, name: str) -> None:
-        self.name = name
-        self.partitions: List[Partition] = []
-
-    def __repr__(self) -> str:
-        return "Disk(name={}, partitions={})".format(self.name, self.partitions)
-
-class Partition:
-    def __init__(self, disk: Disk, device_name: str, part_uuid: str, type: str) -> None:
-        self.disk = disk
-        self.device_name = device_name
-        self.part_uuid = part_uuid
-        self.type = type
-
-    def __repr__(self) -> str:
-        return "Partition(disk=Disk(device_name={}, ...), device_name={}, part_uuid={}, type={})".format(self.disk.name, self.device_name, self.part_uuid, self.type)
+from bootedit.backend.partition.type import Disk, Partition
 
 def trim_number(input_str: str):
     """
