@@ -42,4 +42,4 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
 
         disk.partitions.append(partition)
 
-    return my_disks.values(), None
+    return list(my_disks.values()), None
