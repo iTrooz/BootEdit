@@ -107,7 +107,28 @@ files = [
     {file = "pywin32-306-cp39-cp39-win_amd64.whl", hash = "sha256:39b61c15272833b5c329a2989999dcae836b1eed650252ab1b7bfbe1d59f30f4"},
 ]
 
+[[package]]
+name = "wmi"
+version = "1.5.1"
+description = "Windows Management Instrumentation"
+optional = false
+python-versions = "*"
+files = [
+    {file = "WMI-1.5.1-py2.py3-none-any.whl", hash = "sha256:1d6b085e5c445141c475476000b661f60fff1aaa19f76bf82b7abb92e0ff4942"},
+    {file = "WMI-1.5.1.tar.gz", hash = "sha256:b6a6be5711b1b6c8d55bda7a8befd75c48c12b770b9d227d31c1737dbf0d40a6"},
+]
+
+[package.dependencies]
+pywin32 = "*"
+
+[package.extras]
+all = ["pytest", "sphinx", "twine", "wheel"]
+dev = ["pytest", "sphinx", "twine", "wheel"]
+docs = ["sphinx"]
+package = ["twine", "wheel"]
+tests = ["pytest"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "21d33448c3bce2c41f7d18c340ad318bd74b79517a94e9327af6dc7b1a24c94b"
+content-hash = "0edd4500e4238484b5a1d150fa632fd710268dc7fc38e2dc6b78781a5168685f"

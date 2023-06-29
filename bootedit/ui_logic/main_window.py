@@ -3,7 +3,7 @@ from typing import Optional
 from PyQt6.QtWidgets import QApplication, QMessageBox
 from PyQt6.QtCore import Qt
 
-from firmware_variables.boot import get_boot_order, set_boot_order
+from firmware_variables import get_boot_order, set_boot_order, adjust_privileges
 
 from bootedit.backend.entry import UEFIEntry, get_uefi_entries
 from bootedit.backend.fv_ext.delete_boot_entry import delete_boot_entry
@@ -76,11 +76,13 @@ class MainWindowLogic:
             entry: UEFIEntry = item.entry
             new_order.append(entry.id)
 
-        # juuust to be sure
-        old_order = get_boot_order()
-        assert sorted(old_order) == sorted(new_order)
+        with adjust_privileges():
+            old_order = get_boot_order()
+            
+            # Juuust to be sure
+            assert sorted(old_order) == sorted(new_order)
 
-        set_boot_order(new_order)
+            set_boot_order(new_order)
 
     def set_entries(self, entries: list[UEFIEntry]) -> None:
         self.main_window.table.clear_rows()

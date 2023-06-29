@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.9"
 firmware-variables = {path = "firmware-variables", develop = true}
 pyqt6 = "^6.5.1"
+wmi = {version = "^1.5.1", platform = "win32"}
 
 
 [build-system]
