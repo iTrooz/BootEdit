@@ -36,7 +36,7 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(found_disk.Caption)
             my_disks[disk_id] = disk
 
-        part_uuid = re.search('.*Volume{(.*)}', volume.DeviceID)
+        part_uuid = re.search('.*Volume{(.*)}', volume.DeviceID).group(1)
 
         partition = Partition(disk, volume.Caption, part_uuid, None)
 
