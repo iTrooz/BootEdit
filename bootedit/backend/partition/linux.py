@@ -92,4 +92,4 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             default_partition = partition
         
     
-    return disks.values(), default_partition
+    return list(disks.values()), default_partition
