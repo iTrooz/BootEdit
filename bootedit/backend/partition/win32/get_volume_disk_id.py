@@ -38,14 +38,10 @@ class VOLUME_DISK_EXTENTS(ctypes.Structure):
                 ]
 
 
-def get_volume_disk_id(volume_id: str) -> Optional[int]:
+def get_volume_disk_id(handle) -> Optional[int]:
     """
     Returns None if the volume path if invalid
     """
-
-    handle = open_object(volume_id)
-    if handle == None:
-        return None
 
     output_buffer_size = 8192
     output_buffer = ctypes.create_unicode_buffer(output_buffer_size)

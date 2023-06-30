@@ -6,6 +6,8 @@ import wmi
 from bootedit.backend.partition.type import Disk, Partition
 
 from .get_volume_disk_id import get_volume_disk_id
+from .open_object import open_object
+from .get_partition_info import get_partition_info
 
 # Documentation in get_volume_disk_id.py
 
@@ -20,7 +22,12 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
     for volume in wmi_inst.Win32_Volume():
         
         volume_device_id = volume.deviceID[:-1]
-        disk_id = get_volume_disk_id(volume_device_id)
+        
+        handle = open_object(volume_device_id)
+        if handle == None:
+            continue
+        
+        disk_id = get_volume_disk_id(handle)
         if disk_id == None:
             print("No disk id for volume ?")
             continue
@@ -36,9 +43,12 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(found_disk.Caption)
             my_disks[disk_id] = disk
 
+        part_info = get_partition_info(handle)
+
         part_uuid = re.search('.*Volume{(.*)}', volume.DeviceID).group(1)
 
-        partition = Partition(disk, volume.Caption, part_uuid, None)
+        partition = Partition(disk, id=part_info.PartitionNumber, device_name=volume.Caption, part_uuid=part_uuid, type=None,
+                              blockStartOffset=part_info.StartingOffset, blockSize=part_info.PartitionLength)
 
         disk.partitions.append(partition)
 
