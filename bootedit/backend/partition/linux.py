@@ -3,6 +3,7 @@
 import os
 import subprocess
 from typing import Tuple, List, Optional
+import re
 
 from bootedit.backend.fv_ext import parse_file_path_list, get_parsed_current_boot_entry
 from bootedit.backend.partition.type import Disk, Partition
@@ -51,6 +52,25 @@ def blkid() -> List[dict]:
         parts_data[key] = value
     
     return partitions
+
+def get_end_number(s: str) -> int:
+    "get number at the end of string"
+    return int(re.match('.*?([0-9]+)$', s).group(1))
+
+def read_file(file_path: str) -> str:
+    with open(file_path, "r") as file:
+        return file.read()
+
+def get_partition_info(disk_path: str, partition_path: str) -> Tuple[int, int, int]:
+    """
+    Returns (id, start, size)
+    """
+    p_number = get_end_number(partition_path)
+    sys_part_dir = "/sys/block/{}/{}".format(os.path.basename(disk_path), os.path.basename(partition_path))
+    p_start = int(read_file(sys_part_dir + "/start"))
+    p_size = int(read_file(sys_part_dir + "/size"))
+
+    return (p_number, p_size, p_start)
     
 
 def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
@@ -85,7 +105,10 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
             disk = Disk(name=disk_name)
             disks[disk_name] = disk
 
-        partition = Partition(disk=disk, device_name=device_name, part_uuid=part_uuid, type=part_type)
+        partition_info = get_partition_info(disk_path=disk.name, partition_path=device_name)
+
+        partition = Partition(disk=disk, id=partition_info[0], device_name=device_name, part_uuid=part_uuid,
+                              type=part_type, blockStartOffset=partition_info[1], blockSize=partition_info[2])
         disk.partitions.append(partition)
 
         if part_uuid == curr_entry_loc.sig_id:

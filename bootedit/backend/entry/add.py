@@ -1,5 +1,5 @@
 from bootedit.backend.partition import Partition
-from bootedit.backend.entry.gen_file_path_list.common import gen_file_path_list
+from bootedit.backend.entry import gen_file_path_list
 
 from firmware_variables import get_variable, FVError, LoadOption
 from firmware_variables import set_parsed_boot_entry, get_boot_order, set_boot_order
