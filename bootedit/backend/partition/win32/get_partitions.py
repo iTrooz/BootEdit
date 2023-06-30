@@ -14,7 +14,7 @@ from .get_partition_info import get_partition_info
 wmi_inst = wmi.WMI ()
 
 
-def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
+def get_partitions() -> List[Disk]:
     my_disks = {}
 
     found_disks = { disk.index : disk for disk in wmi_inst.Win32_DiskDrive() }
@@ -52,4 +52,4 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
 
         disk.partitions.append(partition)
 
-    return list(my_disks.values()), None
+    return list(my_disks.values())

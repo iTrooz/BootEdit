@@ -5,7 +5,6 @@ import subprocess
 from typing import Tuple, List, Optional
 import re
 
-from bootedit.backend.fv_ext import parse_file_path_list, get_parsed_current_boot_entry
 from bootedit.backend.partition.type import Disk, Partition
 
 def trim_number(input_str: str):
@@ -73,15 +72,12 @@ def get_partition_info(disk_path: str, partition_path: str) -> Tuple[int, int, i
     return (p_number, p_size, p_start)
     
 
-def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
+def get_partitions() -> List[Disk]:
     """
     Linux-only implementation
     """
-    curr_entry = get_parsed_current_boot_entry()
-    curr_entry_loc = parse_file_path_list(curr_entry.file_path_list)
-
+    
     disks = {}
-    default_partition = None
 
     parts_parents = lsblk()
 
@@ -110,9 +106,5 @@ def get_partitions() -> Tuple[List[Disk], Optional[Partition]]:
         partition = Partition(disk=disk, id=partition_info[0], device_name=device_name, part_uuid=part_uuid,
                               type=part_type, blockStartOffset=partition_info[1], blockSize=partition_info[2])
         disk.partitions.append(partition)
-
-        if part_uuid == curr_entry_loc.sig_id:
-            default_partition = partition
-        
     
-    return list(disks.values()), default_partition
+    return list(disks.values())

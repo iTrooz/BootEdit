@@ -7,7 +7,7 @@ from firmware_variables import get_boot_order, set_boot_order, adjust_privileges
 
 from bootedit.backend.entry import UEFIEntry, get_uefi_entries
 from bootedit.backend.fv_ext.delete_boot_entry import delete_boot_entry
-from bootedit.backend.partition import get_partitions
+from bootedit.backend.partition import get_partitions, get_current_guid
 from bootedit.ui.main_window import MainWindow
 from bootedit.ui_logic.add_uefi_entry import AddUEFIEntryLogic
 
@@ -58,7 +58,11 @@ class MainWindowLogic:
 
     def show_add_entry_window(self):
         self.add_entry_window = AddUEFIEntryLogic()
-        self.add_entry_window.set_partitions_data(*get_partitions())
+        
+        partitions = get_partitions()
+        default_guid = get_current_guid()
+        
+        self.add_entry_window.set_partitions_data(partitions, default_guid)
         self.add_entry_window.show_window()
         self.add_entry_window.close_event = self.on_close_add_entry_window
 

@@ -29,7 +29,7 @@ class UEFIEntry:
         load_option_path = parse_file_path_list(load_option.file_path_list)
         entry.file_path = load_option_path.file_path
 
-        disks, _ = get_partitions()
+        disks = get_partitions()
         for disk in disks:
             for partition in disk.partitions:
                 if partition.part_uuid == load_option_path.sig_id:

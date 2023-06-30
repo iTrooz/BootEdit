@@ -299,7 +299,7 @@ class AddUEFIEntryLogic:
             ok_button.setEnabled(True)
     
 
-    def set_partitions_data(self, disks: List[Disk], default_partition: Partition):
+    def set_partitions_data(self, disks: List[Disk], default_guid: str):
         self.disks = disks
 
         self.ui.tree_manual_partition.clear()
@@ -318,7 +318,7 @@ class AddUEFIEntryLogic:
                 part_item.setText(1, partition.type)
                 disk_item.addChild(part_item)
 
-                if partition == default_partition:
+                if partition.part_uuid == default_guid:
                     part_item.setSelected(True)
 
     def ok_button_clicked_slot(self):
