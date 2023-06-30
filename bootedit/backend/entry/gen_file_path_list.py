@@ -28,8 +28,8 @@ def gen_hardware_end() -> DevicePath:
 def gen_hard_drive_subtype(partition: Partition) -> DevicePath:
     p_number = partition.id
     p_type = "vat"
-    p_start = partition.blockStartOffset
-    p_size = partition.blockSize
+    p_start = partition.block_start_offset
+    p_size = partition.block_size
     p_sig = uuid.UUID(hex=partition.part_uuid)
     p_sig_1 = int.from_bytes(p_sig.bytes_le[0:8], 'little')
     p_sig_2 = int.from_bytes(p_sig.bytes_le[8:], 'little')

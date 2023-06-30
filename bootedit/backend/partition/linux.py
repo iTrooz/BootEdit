@@ -104,7 +104,7 @@ def get_partitions() -> List[Disk]:
         partition_info = get_partition_info(disk_path=disk.name, partition_path=device_name)
 
         partition = Partition(disk=disk, id=partition_info[0], device_name=device_name, part_uuid=part_uuid,
-                              type=part_type, blockStartOffset=partition_info[1], blockSize=partition_info[2])
+                              type=part_type, block_start_offset=partition_info[1], block_size=partition_info[2])
         disk.partitions.append(partition)
     
     return list(disks.values())

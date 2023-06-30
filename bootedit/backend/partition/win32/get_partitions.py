@@ -48,7 +48,7 @@ def get_partitions() -> List[Disk]:
         part_uuid = re.search('.*Volume{(.*)}', volume.DeviceID).group(1)
 
         partition = Partition(disk, id=part_info.PartitionNumber, device_name=volume.Caption, part_uuid=part_uuid, type=None,
-                              blockStartOffset=part_info.StartingOffset, blockSize=part_info.PartitionLength)
+                              block_start_offset=part_info.StartingOffset, block_size=part_info.PartitionLength)
 
         disk.partitions.append(partition)
 
