@@ -32,7 +32,7 @@ class UEFIEntry:
         disks = get_partitions()
         for disk in disks:
             for partition in disk.partitions:
-                if partition.part_uuid == load_option_path.sig_id:
+                if partition.part_uuid == load_option_path.guid:
                     entry.partition = partition.device_name
 
         return entry

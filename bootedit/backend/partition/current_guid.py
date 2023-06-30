@@ -11,4 +11,4 @@ def get_current_guid() -> Optional[str]:
     curr_entry = get_parsed_current_boot_entry()
     curr_entry_loc = parse_file_path_list(curr_entry.file_path_list)
 
-    return curr_entry_loc.sig_id
+    return curr_entry_loc.guid

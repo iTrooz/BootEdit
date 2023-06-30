@@ -14,20 +14,20 @@ EFI_HARD_DRIVE = struct.Struct("<IQQQQBB")
 class LoadOptionPath:
     """
     :attr table_id: ID of this partition on the partition table of the device
-    :attr sig_id: Unique ID of this partition, usually represented witht he UUID format
+    :attr guid: Unique ID of this partition, usually represented witht he UUID format
     """
     def __init__(self) -> None:
         self.table_id = None
-        self.sig_id = None
+        self.guid = None
         self.file_path = None
 
     def is_valid(self) -> bool:
         return (self.table_id != None and
-            self.sig_id != None and
+            self.guid != None and
             self.file_path != None)
 
     def __repr__(self) -> str:
-        return "EntryLocation(table_id={}, sig_id={}, file_path={})".format(self.table_id, self.sig_id, self.file_path)
+        return "EntryLocation(table_id={}, sig_id={}, file_path={})".format(self.table_id, self.guid, self.file_path)
 
 
 def parse_file_path_list(file_path_list: DevicePathList) -> LoadOptionPath:
@@ -40,7 +40,7 @@ def parse_file_path_list(file_path_list: DevicePathList) -> LoadOptionPath:
 
             p_sig = p_sig_1.to_bytes(8, 'little') + p_sig_2.to_bytes(8, 'little')
 
-            entry_location.sig_id = str(UUID(bytes_le=p_sig))
+            entry_location.guid = str(UUID(bytes_le=p_sig))
         if path.subtype == MediaDevicePathSubtype.FILE_PATH:
             entry_location.file_path = utf16_string_from_bytes(path.data)
     
