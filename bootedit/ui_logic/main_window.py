@@ -60,7 +60,9 @@ class MainWindowLogic:
         self.add_entry_window = AddUEFIEntryLogic()
         
         partitions = get_partitions()
-        default_guid = get_current_guid()
+
+        with adjust_privileges():
+            default_guid = get_current_guid()
         
         self.add_entry_window.set_partitions_data(partitions, default_guid)
         self.add_entry_window.show_window()
