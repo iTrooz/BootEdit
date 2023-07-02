@@ -33,6 +33,6 @@ class UEFIEntry:
         for disk in disks:
             for partition in disk.partitions:
                 if partition.part_uuid == load_option_path.guid:
-                    entry.partition = partition.device_name
+                    entry.partition = partition.internal_name
 
         return entry

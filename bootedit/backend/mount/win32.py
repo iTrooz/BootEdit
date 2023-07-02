@@ -112,7 +112,7 @@ def actually_mount(partition: Partition, letter_3: str) -> None:
 
 def get_partition_letter(partition: Partition) -> Optional[str]:
     """Get the letter associated with this partition, in the format `C:\`, if there is one"""
-    partition_device_path = volume_name_to_device_path(partition.device_name)
+    partition_device_path = volume_name_to_device_path(partition.internal_name)
 
     for letter_1 in get_allocated_letters():
         letter_device_path = drive_letter_to_device_path(f"{letter_1}:\\")

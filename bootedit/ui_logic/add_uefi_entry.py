@@ -86,7 +86,7 @@ class AddUEFIEntryLogic:
     def find_partition(self, device_name) -> Optional[Partition]:
         for disk in self.disks:
             for partition in disk.partitions:
-                if partition.device_name == device_name:
+                if partition.internal_name == device_name:
                     return partition
         return None
 
@@ -113,7 +113,7 @@ class AddUEFIEntryLogic:
                 partition = part_item.partition
         
         if partition:
-            self.ui.edit_partition.setText(partition.device_name)
+            self.ui.edit_partition.setText(partition.internal_name)
             # the edit line text edit event will take care of updating the partition
             
             self.update_widgets_errors()
@@ -156,7 +156,7 @@ class AddUEFIEntryLogic:
 
             self.update_widgets_errors()
 
-            QMessageBox.critical(self.ui, "", f"Failed to mount partition {partition.device_name}.\n"
+            QMessageBox.critical(self.ui, "", f"Failed to mount partition {partition.internal_name}.\n"
                                     f"Error: {error}")
         elif partition == None:
             self.selected_partition = None
@@ -314,7 +314,7 @@ class AddUEFIEntryLogic:
             for partition in disk.partitions:
                 part_item = QTreeWidgetItem()
                 part_item.partition = partition
-                part_item.setText(0, partition.device_name)
+                part_item.setText(0, partition.internal_name)
                 part_item.setText(1, partition.type)
                 disk_item.addChild(part_item)
 

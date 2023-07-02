@@ -18,14 +18,14 @@ def mount(partition: Partition) -> str:
     # If so, try to mount again in read-write mode
     # Do not do this in the 'except' block to avoid 'During handling of the above exception, another exception occurred'
     try:
-        subprocess.check_call(["mount", partition.device_name, tmpdir, "-t", partition.type, '-r'])
+        subprocess.check_call(["mount", partition.internal_name, tmpdir, "-t", partition.type, '-r'])
     except subprocess.CalledProcessError:
         try:
-            subprocess.check_call(["mount", partition.device_name, tmpdir, "-t", partition.type])
+            subprocess.check_call(["mount", partition.internal_name, tmpdir, "-t", partition.type])
         except subprocess.CalledProcessError as e:
             raise MountError(e) from None
 
-    print(f"Mounted partition {partition.device_name} on {tmpdir}")
+    print(f"Mounted partition {partition.internal_name} on {tmpdir}")
 
     return tmpdir
 
