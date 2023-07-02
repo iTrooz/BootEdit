@@ -39,7 +39,6 @@ def open_object(path: str) -> Optional[wintypes.HANDLE]:
     )
 
     if ret == INVALID_HANDLE_VALUE:
-        exit(1)
         return None
     else:
         return ret
