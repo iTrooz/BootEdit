@@ -138,7 +138,7 @@ class AddUEFIEntryLogic:
 
         # remove from old mount point
         if self.mount_point:
-            unmount(self.mount_point)
+            unmount(self.selected_partition, self.mount_point)
             self.mount_point = None
 
         # try to mount the new mount point
