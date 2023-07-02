@@ -39,7 +39,7 @@ def get_partitions() -> List[Disk]:
             if not found_disk:
                 print("No disk found with that disk index ?")
                 continue
-            disk = Disk(id=found_disk.Index, name=found_disk.Caption)
+            disk = Disk(id=found_disk.Index, friendly_name=found_disk.Caption)
             my_disks[disk_id] = disk
 
         part_info = get_partition_info(handle)

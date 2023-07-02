@@ -306,7 +306,7 @@ class AddUEFIEntryLogic:
 
         for disk in disks:
             disk_item = QTreeWidgetItem()
-            disk_item.setText(0, disk.name)
+            disk_item.setText(0, disk.friendly_name)
             self.ui.tree_manual_partition.addTopLevelItem(disk_item)
             disk_item.setExpanded(True)
 
