@@ -23,6 +23,11 @@ class MyStyle(QProxyStyle):
         """
         if element == QStyle.PrimitiveElement.PE_IndicatorItemViewItemDrop and not option.rect.isNull():
             option_new = QStyleOption(option)
+
+            # Move the line one pixel to the bottom, so we can see it when moving above the first item
+            option_new.rect.setTop(option_new.rect.top()+1)
+            option_new.rect.setBottom(option_new.rect.bottom()+1)
+            
             option_new.rect.setLeft(0)
             if widget:
                 option_new.rect.setRight(widget.width())
