@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QWidget, QLineEdit, QDialogButtonBox, QMessageBox, Q
 from PyQt6.QtCore import pyqtSignal
 
 from bootedit.backend.partition import Disk, Partition
-from bootedit.backend.mount import mount, unmount, MountError
+from bootedit.backend.mount import MountGuard, MountError
 from bootedit.backend.entry import add_uefi_entry
 from bootedit.ui.add_uefi_entry import AddUEFIEntryWindow
 
@@ -43,7 +43,7 @@ class AddUEFIEntryLogic:
         self.selected_file_relpath: Optional[str] = None
         self.selected_file_size: Optional[int] = None
         self.entry_name: str = ""
-        self.mount_point: Optional[str] = None
+        self.mount_guard: Optional[MountGuard] = None
         self.disks: Optional[List[Disk]] = None
 
         self.ui = AddUEFIEntryWindow()
@@ -137,20 +137,20 @@ class AddUEFIEntryLogic:
         self.update_file_line_edits()
 
         # remove from old mount point
-        if self.mount_point:
-            unmount(self.selected_partition, self.mount_point)
-            self.mount_point = None
+        if self.mount_guard:
+            self.mount_guard.unmount()
+            self.mount_guard = None
 
         # try to mount the new mount point
         error = None
         if partition:
             try:
-                self.mount_point = mount(partition)
+                self.mount_guard = MountGuard(partition)
             except MountError as e:
                 error = e
 
         if error:
-            self.mount_point = None
+            self.mount_guard = None
             self.selected_partition = None
             self.selected_partition_valid = False
 
@@ -178,7 +178,7 @@ class AddUEFIEntryLogic:
         Trigerred when we edit the file line edit widget (one call per character)
         """
 
-        full_file_path = os.path.join(self.mount_point, self.ui.edit_file.text())
+        full_file_path = os.path.join(self.mount_guard.path, self.ui.edit_file.text())
         self.set_selected_file(full_file_path)
 
         self.update_widgets_errors()
@@ -187,11 +187,11 @@ class AddUEFIEntryLogic:
         """
         Called when we want to select the file with the system file selector
         """
-        ret = QFileDialog.getOpenFileName(directory=self.mount_point)
+        ret = QFileDialog.getOpenFileName(directory=self.mount_guard.path)
 
         full_file_path = ret[0]
         if full_file_path:
-            if path_is_parent(self.mount_point, full_file_path):
+            if path_is_parent(self.mount_guard.partition, full_file_path):
                 self.set_selected_file(full_file_path)
 
                 self.update_file_line_edits()
@@ -226,7 +226,7 @@ class AddUEFIEntryLogic:
 
         if full_file_path and os.path.isfile(full_file_path):
             self.selected_file_size = os.path.getsize(full_file_path)
-            self.selected_file_relpath = os.path.relpath(full_file_path, self.mount_point)
+            self.selected_file_relpath = os.path.relpath(full_file_path, self.mount_guard.path)
         else:
             self.selected_file_size = None
             self.selected_file_relpath = None

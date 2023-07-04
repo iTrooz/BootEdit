@@ -130,17 +130,16 @@ def get_partition_letter(partition: Partition) -> Optional[str]:
         if letter_device_path == partition_device_path:
             return f"{letter_1}:\\"
 
+def get_mount_path(partition: Partition) -> Optional[str]:
+    letter_3 = get_partition_letter(partition)
+    return letter_3
+    
+
 def mount(partition: Partition) -> str:
     """
-    Makes a partition available ("mounted") **if it not already**
+    Makes a partition available ("mounted")
     Returns the root path of the partition
     """
-
-    # Check if we already have a letter associated with this partition
-    letter_3 = get_partition_letter(partition)
-    if letter_3:
-        return letter_3
-
     letter_3 = get_free_letter()
     
     actually_mount(partition, letter_3)
