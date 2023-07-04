@@ -191,7 +191,7 @@ class AddUEFIEntryLogic:
 
         full_file_path = ret[0]
         if full_file_path:
-            if path_is_parent(self.mount_guard.partition, full_file_path):
+            if path_is_parent(self.mount_guard.path, full_file_path):
                 self.set_selected_file(full_file_path)
 
                 self.update_file_line_edits()
