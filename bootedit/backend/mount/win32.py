@@ -26,8 +26,16 @@ def diskpart(commands: List) -> str:
     tfile.flush()
     tfile.close()
     
-
-    output = subprocess.check_output(["diskpart", "/s", tfile.name])
+    try:
+        output = subprocess.check_output(["diskpart", "/s", tfile.name])
+    except subprocess.CalledProcessError as e:
+        print("-- diskpart error occured !")
+        print("- Logs :")
+        print(e.output.decode())
+        print("- Command :")
+        print(commands)
+        print("- Re-raising exception")
+        raise e
 
     os.remove(tfile.name)
 
