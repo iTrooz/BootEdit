@@ -35,6 +35,8 @@ class EntryTableView(OrderableTableView):
         widget.setLayout(layout)
 
         checkbox = QtWidgets.QCheckBox()
+        # temporary fix to make the checkboxes somewhat visible
+        checkbox.setStyleSheet("background-color: gray")
         layout.addWidget(checkbox, 0, 0, QtCore.Qt.AlignmentFlag.AlignCenter)
         
         return widget, checkbox
