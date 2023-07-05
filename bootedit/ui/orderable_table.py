@@ -52,7 +52,7 @@ class OrderableTableButtons(QWidget):
 
 class OrderableTableView(QTableView):
     
-    row_moved = pyqtSignal()
+    row_moved = pyqtSignal(int, int)
     
     def __init__(self, *kargs, **kwargs):
         super().__init__(*kargs, **kwargs)
@@ -225,7 +225,7 @@ class OrderableTableView(QTableView):
         # Set back the current index
         self.setCurrentIndex(selected)
 
-        self.row_moved.emit()
+        self.row_moved.emit(row_from, row_to)
 
 
     def move_up(self, item: QStandardItem) -> None:
