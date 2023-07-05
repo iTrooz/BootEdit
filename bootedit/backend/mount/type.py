@@ -1,9 +1,6 @@
 from ..partition import Partition
 from .platform import mount, get_mount_path, unmount
 
-class MountError(RuntimeError):
-    pass
-
 class MountGuard:
     """
     Mounts a partition, and unmounts it when the object is deleted

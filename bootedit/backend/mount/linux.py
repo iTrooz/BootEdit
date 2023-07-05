@@ -2,7 +2,7 @@ import subprocess
 import os
 import tempfile
 
-from bootedit.backend.mount.type import MountError
+from bootedit.backend.mount.mount_error import MountError
 
 from ..partition import Partition
 
