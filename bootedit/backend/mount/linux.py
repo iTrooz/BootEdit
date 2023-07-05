@@ -34,5 +34,5 @@ def mount(partition: Partition) -> str:
 
     return tmpdir
 
-def unmount(device_path: str):
+def unmount(partition: Partition, device_path: str):
     subprocess.check_call(["umount", device_path])
