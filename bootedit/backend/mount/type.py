@@ -12,12 +12,11 @@ class MountGuard:
 
     def __init__(self, partition: Partition) -> None:
         self.partition = partition
+        self.mounted_by_me = False
 
         # Try to get existing mount path
         self.path = get_mount_path(self.partition)
-        if self.path:
-            self.mounted_by_me = False
-        else:
+        if not self.path:
             # If none exist, mount the partition
             self.path = mount(partition)
             self.mounted_by_me = True
