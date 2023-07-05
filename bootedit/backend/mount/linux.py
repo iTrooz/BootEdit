@@ -1,3 +1,4 @@
+from typing import Optional
 import subprocess
 import os
 import tempfile
@@ -5,6 +6,9 @@ import tempfile
 from bootedit.backend.mount.mount_error import MountError
 
 from ..partition import Partition
+
+def get_mount_path(partition: Partition) -> Optional[str]:
+    return None
 
 def mount(partition: Partition) -> str:
     """
