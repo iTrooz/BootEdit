@@ -98,12 +98,12 @@ def get_partitions() -> List[Disk]:
 
         disk = disks.get(disk_name)
         if not disk:
-            disk = Disk(friendly_name=disk_name)
+            disk = Disk(id=get_end_number(disk_name), friendly_name=disk_name)
             disks[disk_name] = disk
 
         partition_info = get_partition_info(disk_path=disk.friendly_name, partition_path=device_name)
 
-        partition = Partition(disk=disk, id=partition_info[0], internal_name=device_name, part_uuid=part_uuid,
+        partition = Partition(disk=disk, id=partition_info[0], friendly_name=device_name, internal_name=device_name, part_uuid=part_uuid,
                               type=part_type, block_start_offset=partition_info[1], block_size=partition_info[2])
         disk.partitions.append(partition)
     
