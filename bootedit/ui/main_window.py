@@ -26,10 +26,6 @@ class MainWindow(QWidget):
         self.remove_button = utils.gen_button(self, bundled_icon="remove.svg")
         header.addWidget(self.remove_button)
 
-        # add "edit" button
-        self.edit_button = utils.gen_button(self, bundled_icon="edit.svg")
-        header.addWidget(self.edit_button)
-
         # put the buttons to the left by adding a spacing to the right
         header.addStretch()
 
