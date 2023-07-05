@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QTableWidget, QTableWidgetItem, QAbstractItemView
 from PyQt6.QtWidgets import *
@@ -148,19 +148,28 @@ class OrderableTableView(QTableView):
         button.setSizePolicy(sp)
 
 
-    def add_row(self, items: List[QStandardItem], index=-1) -> Tuple[QTableWidgetItem, OrderableTableButtons]:
+    def add_row(self, components: List[Union[QStandardItem, QWidget]], index=-1) -> Tuple[QTableWidgetItem, OrderableTableButtons]:
         if index == -1:
             row = self.model().rowCount()
         else:
             row = index
         self.model().insertRow(row)
 
-        for col, item in enumerate(items):
-            # disable drop on items because they don't work for some reason
-            item.setDropEnabled(False)
-            item.setEditable(False)
+        for col, comp in enumerate(components):
+            if isinstance(comp, QStandardItem):
+                # disable drop on items because they don't work for some reason
+                comp.setDropEnabled(False)
+                comp.setEditable(False)
 
-            self.model().setItem(row, col, item)
+                self.model().setItem(row, col, comp)
+            else: # It's a custom widget
+                item = QStandardItem()
+
+                item.setDropEnabled(False)
+                item.setEditable(False)
+
+                self.model().setItem(row, col, item)
+                self.setIndexWidget(self.model().index(row, col), comp)
 
         self.add_row_buttons(row)
 
