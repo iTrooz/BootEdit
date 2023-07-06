@@ -18,14 +18,34 @@ class EntryTableView(OrderableTableView):
         super().__init__(*kargs, **kwargs)
 
         self.model().setHorizontalHeaderLabels(["Entry name", "Partition", "Boot file path", "Enabled", ""])
-        self.row_moved.connect(self.__re_add_checkbox)
 
-    def __re_add_checkbox(self, row_from: int, row_to: int) -> None:
-        cb_widget, _ = self.__gen_checkbox()
+    def __checkbox_col(self) -> int:
+        "checkbox column is hardcoded here"
+        return 3
+    
 
-        # checkbox column is hardcoded here
+    def move_row(self, row_from: int, row_to: int) -> None:
+        "Overriden method to re-set the checkbox"
+
+        # get checkbox
+        index = self.model().index(row_from, self.__checkbox_col())
+        widget = self.indexWidget(index)
+        checkbox = widget.checkbox
+
+        # get checked state
+        is_checked = checkbox.isChecked()
+
+        # Call the actual move method
+        super().move_row(row_from, row_to)
+
+        new_widget, new_checkbox = self.__gen_checkbox()
+        
+        # re-set checked state
+        new_checkbox.setChecked(is_checked)
+
+        # re-set checkbox
         index = self.model().index(row_to, 3)
-        self.setIndexWidget(index, cb_widget)
+        self.setIndexWidget(index, new_widget)
 
     def __gen_checkbox(self) -> Tuple[QtWidgets.QWidget, QtWidgets.QCheckBox]:
 
@@ -38,6 +58,8 @@ class EntryTableView(OrderableTableView):
         # temporary fix to make the checkboxes somewhat visible
         checkbox.setStyleSheet("background-color: gray")
         layout.addWidget(checkbox, 0, 0, QtCore.Qt.AlignmentFlag.AlignCenter)
+
+        widget.checkbox = checkbox
         
         return widget, checkbox
 
