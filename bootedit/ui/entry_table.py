@@ -71,7 +71,7 @@ class EntryTableView(OrderableTableView):
         entry_name.entry = entry
 
         cb_widget, checkbox = self.__gen_checkbox()
-        checkbox.setChecked(entry.attributes & LoadOptionAttributes.LOAD_OPTION_ACTIVE)
+        checkbox.setChecked(entry.enabled)
 
 
         self.add_row([

@@ -1,4 +1,4 @@
-from firmware_variables.load_option import LoadOption
+from firmware_variables.load_option import LoadOption, LoadOptionAttributes
 from bootedit.backend.partition import get_partitions
 from bootedit.backend.fv_ext.load_option_path import LoadOptionPath, parse_file_path_list
 
@@ -9,13 +9,13 @@ class UEFIEntry:
 
     :attr id: ID of this entry (the 4 hex digit of the Boot### variable in decimal form)
     :attr name: Name of this entry
-    :attr attributes: attributes of **the boot entry (load option)**, bitfield with flags of this entry
+    :attr enabled: if this boot entry is enabled or not
     :attr location: path of the executable to run
     """
     def __init__(self):
         self.id = 0
         self.name = ""
-        self.attributes = 0
+        self.enabled = False
         self.partition = ""
         self.file_path = ""
 
@@ -24,7 +24,7 @@ class UEFIEntry:
         entry = UEFIEntry()
         entry.id = entry_id
         entry.name = load_option.description
-        entry.attributes = load_option.attributes
+        entry.enabled = bool(load_option.attributes & LoadOptionAttributes.LOAD_OPTION_ACTIVE)
 
         load_option_path = parse_file_path_list(load_option.file_path_list)
         entry.file_path = load_option_path.file_path
