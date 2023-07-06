@@ -321,6 +321,10 @@ class AddUEFIEntryLogic:
                 if partition.part_uuid == default_guid:
                     part_item.setSelected(True)
 
+        # resize all columns to content
+        for i in range(self.ui.tree_manual_partition.columnCount()):
+            self.ui.tree_manual_partition.resizeColumnToContents(i)
+
     def ok_button_clicked_slot(self):
         rel_file_path = self.selected_file_relpath
 
