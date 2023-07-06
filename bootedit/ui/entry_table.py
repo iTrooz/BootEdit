@@ -3,6 +3,8 @@ from typing import Tuple
 from PyQt6.QtGui import QStandardItem
 from PyQt6 import QtCore, QtWidgets
 
+from firmware_variables.load_option import LoadOptionAttributes
+
 from bootedit.backend.entry import UEFIEntry
 from bootedit.ui.orderable_table import OrderableTableView
 
@@ -68,7 +70,9 @@ class EntryTableView(OrderableTableView):
         entry_name = standard_item_text(entry.name)
         entry_name.entry = entry
 
-        cb_widget, _ = self.__gen_checkbox()
+        cb_widget, checkbox = self.__gen_checkbox()
+        checkbox.setChecked(entry.attributes & LoadOptionAttributes.LOAD_OPTION_ACTIVE)
+
 
         self.add_row([
             entry_name,
