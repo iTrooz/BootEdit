@@ -43,7 +43,7 @@ def diskpart(commands: List) -> str:
 
 def get_allocated_letters() -> List[str]:
     """
-    Get letters that are not available to be alloated to a new partition/volume/whatever
+    Get letters that are not available to be allocated to a new partition/volume/whatever
     Warning: sometimes, letters are allocated, but users can't access them. (Like, the letter is not available in the explorer)
     """
 
