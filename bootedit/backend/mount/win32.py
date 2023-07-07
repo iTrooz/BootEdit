@@ -17,6 +17,7 @@ def diskpart(commands: List) -> str:
     Execute the given commands in diskpart, and returns the output
     """
 
+    # We use delete=False so that the file can be accessed by other processes
     tfile = tempfile.NamedTemporaryFile(delete=False)
 
     for command in commands:
