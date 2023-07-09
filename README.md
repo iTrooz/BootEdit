@@ -26,3 +26,8 @@ python main.py # run app
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/42669835/251552608-3edfd45b-ef23-49a9-9d46-335d9825bc50.png)
+
+# Disclaimer
+
+This program is offered AS IS, WITHOUT ANY GUARANTY.
+Any failure from the software and any damage it could cause (for example, but not limited too, not being able to boot because the boot order is messed up) are your responsability, and not the developer's.
