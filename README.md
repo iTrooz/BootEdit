@@ -30,4 +30,4 @@ python main.py # run app
 # Disclaimer
 
 This program is offered AS IS, WITHOUT ANY GUARANTY.
-Any failure from the software and any damage it could cause (for example, but not limited too, not being able to boot because the boot order is messed up) are your responsability, and not the developer's.
+Any failure from the software and any damage it could cause (for example, but not limited to, not being able to boot because the boot order is messed up) are your responsibilites, and not the developer's.
